@@ -2,6 +2,31 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2004-03-16 19:35:14 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-2
+
+    Summary:
+      added REXX and PostScript versions
+    Revision:
+      primenumbers--main--0.1--patch-2
+
+    added REXX and PostScript versions
+    
+
+    new files:
+     src/postscript/.arch-ids/=id
+     src/postscript/.arch-ids/primenumbers.ps.id
+     src/postscript/primenumbers.ps src/rexx/.arch-ids/=id
+     src/rexx/.arch-ids/primenumbers.rex.id
+     src/rexx/primenumbers.rex
+
+    modified files:
+     ChangeLog
+
+    new directories:
+     src/postscript src/postscript/.arch-ids src/rexx
+     src/rexx/.arch-ids
+
+
 2004-03-16 19:28:50 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-1
 
     Summary:

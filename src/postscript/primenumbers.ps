@@ -1,0 +1,88 @@
+%!PS-Adobe-2.0
+%%Title: prime numbers
+
+% Author: Hans Ulrich Niedermann
+% Copyright (C) 2003 Hans Ulrich Niedermann
+
+/max 16 def          % number of primes to calculate
+/fontsize 12 def         % fontsize for primes
+
+/Times-Roman findfont   % Get the basic font
+30 scalefont            % Scale the font to 20 points
+setfont                 % Make it the current font
+
+newpath
+60 536 moveto
+(Hrhr... PostScript rulez supreme! :-\)) show
+
+/Times-Roman findfont   % Get the basic font
+15 scalefont            % Scale the font to 20 points
+setfont                 % Make it the current font
+
+newpath                 % Start a new path
+72 72 moveto            % Lower left corner of text at (72, 72)
+(Hello, world!) show    % Typeset "Hello, world!"
+
+newpath
+72 108 moveto
+(6) show
+
+newpath
+72 144 moveto
+3 2 gt {(the former is greater) show} {(the former is not greater) show} ifelse
+
+/Times-Roman findfont   % Get the basic font
+fontsize scalefont            % Scale the font to 20 points
+setfont                 % Make it the current font
+
+/startx 200 def
+/chars 5 def
+1 1 16 {
+  /n 12 string def
+  /ns 12 string def
+  /nsf 12 string def
+  % conversion to string, base 10
+  dup
+  10 n cvrs pop
+  dup
+  sqrt 
+  10 ns cvrs pop
+  dup
+  sqrt floor cvi 
+  10 nsf cvrs pop
+  fontsize mul 500 exch sub
+  dup dup dup
+  newpath
+  startx                              exch moveto 
+  (this text is shown repeatedly) show % static text
+  newpath
+  startx fontsize chars       mul sub exch moveto 
+  n show
+  newpath
+  startx fontsize chars 2 mul mul sub exch moveto 
+  ns show
+  newpath
+  startx fontsize chars 3 mul mul sub exch moveto 
+  nsf show
+} for
+
+% (test2\n) print
+/ar max array def
+2 1 max 1 sub {
+  /tmp 10 string def
+  dup
+  10 tmp cvrs dup
+  (\n) print
+  % ar exch (xxx) put
+} for
+
+% print
+
+%1 1 4 {(bla\n) print} for
+
+%(test
+%wow
+%) print
+
+showpage
+%%EOF
