@@ -1,0 +1,3 @@
+non-optimized Ada with debug code
+ada
+CFLAGS=-O0 -g

@@ -1,0 +1,14 @@
+indexing
+	description: "Root for prime number determination."
+	author : " Hans Ulrich Niedermann "
+
+class HELLO create
+	make
+feature
+	make is
+			-- Print a simple message.
+		do
+			io . put_string (" Hello World ")
+			io . put_new_line
+		end
+end - - class HELLO

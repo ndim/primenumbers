@@ -1,0 +1,3 @@
+non-optimized C with debug code
+c
+CFLAGS=-O0 -g

@@ -1,0 +1,59 @@
+Description
+===========
+
+This package contains the same algorithm implemented in different
+languages, such as C, i386 Assembler, Java, Ada, Perl, Python.
+
+The algorithm is not very sophisticated, but relatively fast.
+
+
+
+Directories
+===========
+
+src/lll            source code for language lll
+testcases/xxx.tc   test case definitions
+build/xxx          built code for test case xxx
+results/xxx.*      benchmark results for test case xxx
+results/xxx.report benchmark report for test case xxx
+
+
+Test cases
+==========
+
+The file name for test case xxx is "xxx.tc".
+
+The first line contains a description.
+The second line contains the language lll as in src/lll/.
+The following lines contain variable definitions for building in the
+form of "VARIABLE=value".
+
+
+How to build the test cases
+===========================
+
+Run
+
+	make build
+
+to build all test cases.
+The build results will be stored in build/.
+
+
+How to run the benchmarks
+=========================
+
+Run
+
+	make benchmark
+
+to run the benchmarks.
+
+The benchmark results will be stored in results/.
+
+
+Version Control
+===============
+
+Migrated to arch (tla).
+
