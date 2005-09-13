@@ -2,6 +2,31 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-09-13 00:15:04 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-3
+
+    Summary:
+      add erlang code
+    Revision:
+      primenumbers--main--0.1--patch-3
+
+    add erlang code
+    
+
+    new files:
+     src/erlang/.arch-ids/.arch-inventory.id
+     src/erlang/.arch-ids/=id src/erlang/.arch-ids/Makefile.id
+     src/erlang/.arch-ids/primenumbers.erl.id
+     src/erlang/.arch-ids/primenumbers.sh.id
+     src/erlang/.arch-inventory src/erlang/Makefile
+     src/erlang/primenumbers.erl src/erlang/primenumbers.sh
+
+    modified files:
+     ChangeLog src/python/primenumbers
+
+    new directories:
+     src/erlang src/erlang/.arch-ids
+
+
 2004-03-16 19:35:14 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-2
 
     Summary:
