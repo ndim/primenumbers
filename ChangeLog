@@ -2,6 +2,32 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-10-13 23:49:41 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-4
+
+    Summary:
+      removed gcj testcases, added erlang version
+    Revision:
+      primenumbers--main--0.1--patch-4
+
+    removed gcj testcases, added erlang version
+    
+
+    new files:
+     .arch-ids/.arch-inventory.id .arch-inventory
+     src/erlang/.arch-ids/prime2.erl.id src/erlang/prime2.erl
+     testcases/.arch-ids/erlang.tc.id testcases/erlang.tc
+
+    removed files:
+     testcases/.arch-ids/gcj-debug.tc.id
+     testcases/.arch-ids/gcj-opt.tc.id testcases/gcj-debug.tc
+     testcases/gcj-opt.tc
+
+    modified files:
+     ChangeLog src/Makefile src/awk/primenumbers
+     src/erlang/Makefile src/erlang/primenumbers.sh
+     testcases/jvm.tc
+
+
 2005-09-13 00:15:04 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-3
 
     Summary:

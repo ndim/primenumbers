@@ -1,3 +1,0 @@
-non-optimized gcj Java with debug code
-java
-CFLAGS=-O0 -g

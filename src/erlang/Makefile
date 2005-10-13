@@ -6,4 +6,4 @@ build: primenumbers.beam
 include ../../benchmark.mk
 
 %.beam: %.erl
-	erl -compile $*
+	erlc $<

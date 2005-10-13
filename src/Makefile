@@ -26,7 +26,6 @@ build:
 			echo "[$$var] = [$$value]"; \
 			export $$var="$$value"; \
 		done < "$$tc"; \
-		env; \
 		IFS="$$ifs"; \
 		VPATH="$$srcdir" $(MAKE) -C "$$builddir" "$@" ); \
 		status="$$?"; \
@@ -59,7 +58,7 @@ benchmark: build
 		echo "############################################################") > "$${resultdir}/$${name}.info"; \
 		srcdir="$$(cd $$src && pwd)" || exit 104; \
 		builddir="$(BUILDDIR)/$$name"; \
-		VPATH="$$srcdir" STDOUT="$${resultdir}/$${name}.output" STDERR="$${resultdir}/$${name}.time" $(MAKE) -C "$$builddir" "$@"; \
+		VPATH="$$srcdir" STDOUT="$${resultdir}/$${name}.output" STDERR="$${resultdir}/$${name}.time" $(MAKE) -C "$$builddir" "$@" < /dev/null; \
 		status="$$?"; \
 		if test "$$status" -ne 0; then \
 			failed="$${failed} $${name}"; \

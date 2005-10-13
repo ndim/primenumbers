@@ -1,4 +1,4 @@
 Java from JVM
 java
 USE_JAVA_VM=1
-JAVA_HOME=/usr/lib/j2se/1.4
+JAVA_HOME=/usr/lib/j2sdk1.5-sun/

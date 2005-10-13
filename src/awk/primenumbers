@@ -1,3 +1,5 @@
+#!/usr/bin/gawk -f
+
 # Raymond Scholz <rscholz@zonix.de>
 
 # gawk -f primenumbers_awk.awk < /dev/null
