@@ -1,5 +1,4 @@
-#!/usr/bin/python2.2 -OO
-#    $Id: primenumbers,v 1.2 2003/09/23 21:50:24 ndim Exp $
+#!/usr/bin/python -OO
 #
 #    Straight Python version of prime number tests in misc languages
 #    Copyright (C) 2002 Hans Ulrich Niedermann <primes@n-dimensional.de>
@@ -45,3 +44,8 @@ for i in range(2,1<<16):
 
 for i in range(0, 1<<16):
     print "%u %u" % (i, p[i])
+
+
+# Local Variables:
+# mode:python
+# End:

@@ -2,6 +2,21 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-11-01 15:36:08 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-5
+
+    Summary:
+      cosmetics
+    Revision:
+      primenumbers--main--0.1--patch-5
+
+    cosmetics
+    
+
+    modified files:
+     ChangeLog src/python-array/primenumbers
+     src/python/primenumbers
+
+
 2005-10-13 23:49:41 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-4
 
     Summary:
