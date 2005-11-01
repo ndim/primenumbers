@@ -2,6 +2,30 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-11-01 15:38:02 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-6
+
+    Summary:
+      Working Erlang version (p4)
+    Revision:
+      primenumbers--main--0.1--patch-6
+
+    Working Erlang version (p4)
+    
+
+    new files:
+     src/erlang/.arch-ids/p4.erl.id src/erlang/.arch-ids/p4.sh.id
+     src/erlang/p4.erl src/erlang/p4.sh
+
+    removed files:
+     src/erlang/.arch-ids/prime2.erl.id
+     src/erlang/.arch-ids/primenumbers.erl.id
+     src/erlang/.arch-ids/primenumbers.sh.id src/erlang/prime2.erl
+     src/erlang/primenumbers.erl src/erlang/primenumbers.sh
+
+    modified files:
+     ChangeLog src/erlang/Makefile testcases/erlang.tc
+
+
 2005-11-01 15:36:08 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-5
 
     Summary:

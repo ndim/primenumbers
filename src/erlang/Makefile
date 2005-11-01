@@ -1,7 +1,7 @@
-EXECUTABLE = primenumbers.sh
+EXECUTABLE = p4.sh
 
 .PHONY: build
-build: primenumbers.beam
+build: p4.beam
 
 include ../../benchmark.mk
 
