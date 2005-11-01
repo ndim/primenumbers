@@ -50,27 +50,33 @@ xqrt(X) when X > 0 ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 bork(Test, Sqrt, [Head|Tail]) when Head > Sqrt ->
-    List = [Head|Tail],
-    {prime,[Test|List]};
+    %io:format("bork ~w ~w ~w Head > Sqrt~n", [Test,Sqrt,[Head|Tail]]),
+    %List = [Head|Tail],
+    %{prime,[Test|List]};
+    bork(Test, Sqrt, Tail);
 bork(Test, _Sqrt, [Head|_Tail]) when (Test rem Head) == 0 ->
-    {notprime,Head};
-bork(Test, _Sqrt, [Head|Tail]) ->
-    List = [Head|Tail],
-    {prime,[Test|List]}.
+    %io:format("bork ~w ~w ~w Test rem Head == 0~n", [Test,_Sqrt,[Head|_Tail]]),
+    notprime;
+bork(Test, Sqrt, [_Head|Tail]) ->
+    %io:format("bork ~w ~w ~w otherwise ~n", [Test,Sqrt,[_Head|Tail]]),
+    bork(Test, Sqrt, Tail);
+bork(_Test, _Sqrt, []) ->
+    %io:format("bork ~w ~w ~w PRIME ~n", [_Test,_Sqrt,[]]),
+    prime.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Check next odd number until we have the number of primes we want
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-chalk(Test, [Head|Tail], MaxNum) when length([Head|Tail]) =< MaxNum ->
+chalk(Test, List, MaxNum) when length(List) < MaxNum ->
     Sqrt = xqrt(Test),
-    %io:format("chalk ~w ~w ~w~n",[Test,Sqrt,[Head|Tail]]),
-    case bork(Test, Sqrt, [Head|Tail]) of
-	{notprime,_Foo} ->
-	    chalk(Test+2, [Head|Tail], MaxNum);
-	{prime,List} ->
-	    chalk(Test+2, List, MaxNum)
+    %io:format("chalk ~w ~w ~w~n",[Test,Sqrt,List]),
+    case bork(Test, Sqrt, List) of
+	notprime ->
+	    chalk(Test+2, List, MaxNum);
+	prime ->
+	    chalk(Test+2, [Test|List], MaxNum)
     end;
 chalk(_Test, List, _MaxNum) ->
     List.

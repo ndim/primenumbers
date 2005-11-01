@@ -2,6 +2,21 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-11-01 18:39:11 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-7
+
+    Summary:
+      fixed erlang version, evened out output from erlang, awk, perl
+    Revision:
+      primenumbers--main--0.1--patch-7
+
+    fixed erlang version, evened out output from erlang, awk, perl
+    
+
+    modified files:
+     ChangeLog src/awk/primenumbers src/erlang/p4.erl
+     src/perl/primenumbers
+
+
 2005-11-01 15:38:02 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-6
 
     Summary:

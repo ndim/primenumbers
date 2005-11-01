@@ -60,6 +60,6 @@ sub main
     }
 
     for ($n=0; $n<$MAX; ++$n) {
-	print $n, "\t", $p[$n], "\n";
+	print $n, " ", $p[$n], "\n";
     }
 }
