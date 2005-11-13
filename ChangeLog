@@ -2,6 +2,25 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-11-13 18:42:02 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-9
+
+    Summary:
+      stuff
+    Revision:
+      primenumbers--main--0.1--patch-9
+
+    stuff
+    
+
+    modified files:
+     ChangeLog analyze-benchmark.py src/Makefile src/ada/Makefile
+     src/asm-i386/Makefile src/awk/Makefile src/c/Makefile
+     src/erlang/Makefile src/java/Makefile src/perl/Makefile
+     src/python-array-append/Makefile src/python-array/Makefile
+     src/python/Makefile testcases/python-array-append.tc
+     testcases/python-array.tc testcases/python.tc
+
+
 2005-11-13 17:26:34 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-8
 
     Summary:

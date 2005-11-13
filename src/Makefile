@@ -58,6 +58,7 @@ benchmark: build
 		echo "############################################################") > "$${resultdir}/$${name}.info"; \
 		srcdir="$$(cd $$src && pwd)" || exit 104; \
 		builddir="$(BUILDDIR)/$$name"; \
+		if test "$${builddir}/compile-stamp" -nt "$${resultdir}/$${name}.time"; then :; else continue; fi; \
 		VPATH="$$srcdir" STDOUT="$${resultdir}/$${name}.output" STDERR="$${resultdir}/$${name}.time" $(MAKE) -C "$$builddir" "$@" < /dev/null; \
 		status="$$?"; \
 		if test "$$status" -ne 0; then \

@@ -2,6 +2,7 @@ EXECUTABLE = primenumbers
 
 .PHONY: build
 build: $(EXECUTABLE)
+	date > compile-stamp
 
 ifdef USE_JAVA_VM
 
