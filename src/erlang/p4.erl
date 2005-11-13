@@ -18,10 +18,17 @@
 %  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Please note that some functions have nonsensical names ("bork",
+% "chalk").
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 -module(p4).
 -export([main/0]).
+-export([primelist/1]).
+-export([print_list/1]).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,15 +97,25 @@ print_list(Index,[Head|Tail]) ->
     io:format("~w ~w~n",[Index,Head]),
     print_list(Index+1,Tail);
 print_list(_Index,[]) ->
-    oerks.
+    ok.
+
+print_list(List) ->
+    print_list(0,List).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Return list of prime numbers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+primelist(0) ->
+    [];
+primelist(1) ->
+    [2];
+primelist(Count) when Count > 1 ->
+    chalk(5, [3,2], Count).
+
 primelist() ->
-    chalk(5, [3,2], 65536).
+    primelist(65536).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

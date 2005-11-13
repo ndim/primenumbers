@@ -27,6 +27,10 @@ build benchmark:
 	$(MAKE) -C src $@
 
 ########################################################################
+benchmark.html: analyze-benchmark.py $(wildcard results/*)
+	python $< results/ > $@
+
+########################################################################
 
 .PHONY: clean distclean
 clean:

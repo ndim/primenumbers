@@ -17,23 +17,31 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from array import *;
+"Python version with array() of prime number tests in misc languages"
+
+__revision__ = "1.0"
+
+
+import array
+
 
 def sqrt(x):
+    "integer square root approximation"
     if x <= 0:
         return x
-    i = x/2
+    h = x/2
     while 1:
-        l = i
-        i = (i + x/i)/2
-        if abs(l-i) <= 1:
-            return (i+x/i)/2
+        l = h
+        h = (h + x/h)/2
+        if abs(l-h) <= 1:
+            return (h+x/h)/2
 
-p = array('L')
-p.append(2)
-p.append(3)
-for i in range(2,1<<16):
-    p.append(p[i-1] + 2);
+
+p = array.array('L', [0]*(1<<16))
+p[0] = 2
+p[1] = 3
+for i in range(2, 1<<16):
+    p[i] = p[i-1] + 2
     k = 1
     s = sqrt(p[i])
     while (k<i) and (p[k] <= s):

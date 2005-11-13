@@ -2,6 +2,35 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2005-11-13 17:26:34 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-8
+
+    Summary:
+      summarize benchmark results, new python array test without appends
+    Revision:
+      primenumbers--main--0.1--patch-8
+
+    summarize benchmark results, new python array test without appends
+    
+
+    new files:
+     .arch-ids/analyze-benchmark.py.id analyze-benchmark.py
+     src/python-array-append/.arch-ids/=id
+     src/python-array-append/.arch-ids/Makefile.id
+     src/python-array-append/.arch-ids/primenumbers.id
+     src/python-array-append/Makefile
+     src/python-array-append/primenumbers
+     testcases/.arch-ids/python-array-append.tc.id
+     testcases/python-array-append.tc
+
+    modified files:
+     .arch-inventory ChangeLog Makefile src/erlang/p4.erl
+     src/python-array/primenumbers src/python/primenumbers
+     testcases/python-array.tc
+
+    new directories:
+     src/python-array-append src/python-array-append/.arch-ids
+
+
 2005-11-01 18:39:11 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-7
 
     Summary:

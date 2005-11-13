@@ -1,1 +1,2 @@
 precious ^(results|build)$
+precious ^benchmark\.html$

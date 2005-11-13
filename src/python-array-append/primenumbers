@@ -1,6 +1,6 @@
 #!/usr/bin/python -OO
 #
-#    Straight Python version of prime number tests in misc languages
+#    Python version with array() of prime number tests in misc languages
 #    Copyright (C) 2002 Hans Ulrich Niedermann <primes@n-dimensional.de>
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -17,12 +17,16 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-"""primenumbers -- straight python version of prime number test"""
+"Python version with array() of prime number tests in misc languages"
 
 __revision__ = "1.0"
 
+
+import array
+
+
 def sqrt(x):
-    """sqrt - square root approximation in integers"""
+    "integer square root approximation"
     if x <= 0:
         return x
     h = x/2
@@ -32,11 +36,12 @@ def sqrt(x):
         if abs(l-h) <= 1:
             return (h+x/h)/2
 
-p = [0] * (1<<16)
-p[0] = 2
-p[1] = 3
+
+p = array.array('L')
+p.append(2)
+p.append(3)
 for i in range(2, 1<<16):
-    p[i] = p[i-1] + 2
+    p.append(p[i-1] + 2)
     k = 1
     s = sqrt(p[i])
     while (k<i) and (p[k] <= s):
@@ -45,7 +50,7 @@ for i in range(2, 1<<16):
             k = 1
             s = sqrt(p[i])
         else:
-            k += 1
+            k = k + 1
 
 for i in range(0, 1<<16):
     print "%u %u" % (i, p[i])
