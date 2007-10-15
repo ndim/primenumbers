@@ -2,6 +2,22 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 03:51:41 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-20
+
+    Summary:
+      make erlang test cases run again
+    Revision:
+      primenumbers--main--0.1--patch-20
+
+    
+    
+
+    modified files:
+     ChangeLog src/Makefile src/erlang/p4.erl
+     src/erlang/prime_sieve_ack.erl src/erlang/run-erlang.sh
+     testcases/erlang-sieve-ack.tc testcases/erlang.tc
+
+
 2007-10-15 03:38:50 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-19
 
     Summary:

@@ -26,7 +26,7 @@
 
 
 -module(p4).
--export([main/0, main/1]).
+-export([start/0, start/1]).
 -export([primelist/1]).
 -export([print_list/1]).
 
@@ -122,13 +122,13 @@ primelist() ->
 % Main program
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-main(Count) ->
+start(Count) ->
     PrimeList = primelist(Count),
     ReversedList = lists:reverse(PrimeList),
     print_list(ReversedList),
     ok.
 
-main() ->
+start() ->
     PrimeList = primelist(),
     ReversedList = lists:reverse(PrimeList),
     print_list(ReversedList),

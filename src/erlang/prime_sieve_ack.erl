@@ -28,7 +28,7 @@
 %% 
 %% Ideas for improvement:
 %%   - do not instantiate filter for N if we are sure we will not need it
-%%     ( N > sqrt(largest_prime_in_array) )
+%%     ( N*N > largest_prime_in_array )
 
 -module(prime_sieve_ack).
 -export([start/0, start/1]).
