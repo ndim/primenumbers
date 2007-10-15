@@ -2,6 +2,24 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 03:10:15 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-17
+
+    Summary:
+      add erlang prime sieve
+    Revision:
+      primenumbers--main--0.1--patch-17
+
+    
+    
+
+    new files:
+     src/erlang/.arch-ids/prime_sieve_ack.erl.id
+     src/erlang/prime_sieve_ack.erl
+
+    modified files:
+     ChangeLog
+
+
 2007-10-15 03:09:58 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-16
 
     Summary:
