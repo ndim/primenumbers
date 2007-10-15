@@ -2,6 +2,20 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 02:22:56 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-11
+
+    Summary:
+      adapt gcj testcases for new system
+    Revision:
+      primenumbers--main--0.1--patch-11
+
+    
+    
+
+    modified files:
+     ChangeLog testcases/gcj-debug.tc testcases/gcj-o4.tc
+
+
 2007-10-15 02:05:19 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-10
 
     Summary:
