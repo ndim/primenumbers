@@ -2,6 +2,21 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 02:57:06 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-14
+
+    Summary:
+      Fix gcj test cases, deactivated j2sdk case
+    Revision:
+      primenumbers--main--0.1--patch-14
+
+    
+    
+
+    modified files:
+     ChangeLog benchmark.mk src/Makefile src/java/Makefile
+     testcases/jvm.tc
+
+
 2007-10-15 02:28:24 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-13
 
     Summary:

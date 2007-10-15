@@ -47,6 +47,7 @@ benchmark: build
 		[ -f "$$tc" ] || exit 101; \
 		name="$$(basename "$${tc}" .tc)"; \
 		title="$$(head -n1 $${tc})"; \
+		echo "$$title" | grep "^DISABLED " > /dev/null && continue; \
 		src="$$(head -n2 $${tc} | tail -n1)"; \
 		mkdir -p "$(RESULTDIR)" || exit 102; \
 		resultdir="$$(cd "$(RESULTDIR)" && pwd)" || exit 103; \
@@ -59,15 +60,19 @@ benchmark: build
 		srcdir="$$(cd $$src && pwd)" || exit 104; \
 		builddir="$(BUILDDIR)/$$name"; \
 		if test "$${builddir}/compile-stamp" -nt "$${resultdir}/$${name}.time"; then :; else continue; fi; \
-		VPATH="$$srcdir" STDOUT="$${resultdir}/$${name}.output" STDERR="$${resultdir}/$${name}.time" $(MAKE) -C "$$builddir" "$@" < /dev/null; \
+		(read;read;cat) < "$$tc" > "$${resultdir}/$${name}.compile-options"; \
+		$(MAKE) COMPILE_OPTIONS="$${resultdir}/$${name}.compile-options" \
+			VPATH="$$srcdir" \
+			STDOUT="$${resultdir}/$${name}.output" \
+			STDERR="$${resultdir}/$${name}.time" \
+			-C "$$builddir" "$@" < /dev/null; \
 		status="$$?"; \
 		if test "$$status" -ne 0; then \
 			failed="$${failed} $${name}"; \
 		fi; \
-		(read;read;cat) < "$$tc" > "$${resultdir}/$${name}.compile-options"; \
 		(cat "$${resultdir}/$${name}.info" "$${resultdir}/$${name}.compile-options"; \
 		head -n5 "$${resultdir}/$${name}.time" || exit 105; \
-		echo "############################################################") > "$${resultdir}/$${name}.report" || exit $? ; \
+		echo "############################################################") > "$${resultdir}/$${name}.report" || exit "$$?" ; \
 		cat "$${resultdir}/$${name}.report"; \
 	done; \
 	if test "x$$failed" = "x"; then \

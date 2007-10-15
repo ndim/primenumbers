@@ -1,5 +1,7 @@
 EXECUTABLE = primenumbers
 
+include $(COMPILE_OPTIONS)
+
 .PHONY: build
 build: $(EXECUTABLE)
 	date > compile-stamp
