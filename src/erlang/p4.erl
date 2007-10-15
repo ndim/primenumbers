@@ -26,7 +26,7 @@
 
 
 -module(p4).
--export([main/0]).
+-export([main/0, main/1]).
 -export([primelist/1]).
 -export([print_list/1]).
 
@@ -45,7 +45,7 @@ xqrti(Xl,X) ->
 	    xqrti(Xi,X)
     end.
 
-xqrt(X) when X =< 0 ->
+xqrt(X) when X =:= 0 ->
     X;
 xqrt(X) when X > 0 ->
     Xi = X div 2,
@@ -122,10 +122,16 @@ primelist() ->
 % Main program
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+main(Count) ->
+    PrimeList = primelist(Count),
+    ReversedList = lists:reverse(PrimeList),
+    print_list(ReversedList),
+    ok.
+
 main() ->
     PrimeList = primelist(),
     ReversedList = lists:reverse(PrimeList),
-    print_list(0,ReversedList),
+    print_list(ReversedList),
     ok.
 
 
