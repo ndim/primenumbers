@@ -68,32 +68,42 @@ def run():
       }
       tr > td {
       text-align: right;
+      font-family: monospace;
       }
       tr > td+td {
       text-align: right;
+      font-family: monospace;
       }
       tr > td+td+td {
       text-align: right;
+      font-family: monospace;
       }
       tr > td+td+td+td {
       text-align: left;
+      font-family: inherit;
       }
       tr > td+td+td+td+td {
       text-align: left;
+      font-family: inherit;
       }
     </style>
   </head>
   <body>
     <h1>%(pagetitle)s</h1>
 ''' % (params))
-    o.write("""  <p>
-    The task solved by these programs is to first find the first 2^16 (65536)
-    prime numbers and store them in an array/list and then write a
-    list of them into a file. The algorithm used builds a list of
+    o.write("""\
+  <p>
+    The task solved by these programs is to
+    <ol>
+      <li>find the first 2^16 (65536) prime numbers,
+          storing them in an array/list as they are discovered, then</li>
+      <li>write a numbered list of them into a file</li>
+    </ol>
+    The algorithm used builds a list of
     known prime numbers starting from [2,3] and successively tests
     larger numbers n against this list until the value from the list
     exceeds the square root of n. This algorithm may or may not be the
-    most effective one for the respective system.
+    most effective one for the respective language/runtime pair.
   </p>\n""")
     o.write('<table>\n  <tr><th>rank</th><th>seconds</th><th>relative factor</th><th>testcase</th><th>description</th></tr>\n')
     testcases.sort(lambda a,b: cmp(a["total"],b["total"]))

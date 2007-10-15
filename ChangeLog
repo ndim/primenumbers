@@ -2,6 +2,20 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 04:09:14 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-23
+
+    Summary:
+      nicer benchmark.html
+    Revision:
+      primenumbers--main--0.1--patch-23
+
+    
+    
+
+    modified files:
+     ChangeLog analyze-benchmark.py
+
+
 2007-10-15 04:08:59 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-22
 
     Summary:
