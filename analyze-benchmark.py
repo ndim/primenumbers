@@ -38,17 +38,25 @@ def run():
                 tcfile = open(os.path.join(testcasedir,tcase+".tc"),"r")
                 descr = tcfile.readlines()[0]
                 tcfile.close()
+
+                # Ugly hardcoded blacklist
+                if tcase in ["erlang-sieve-ack",
+                             ]:
+                    algo = "wrong"
+                else:
+                    algo = "right"
                 
                 testcases.append({"name":  tcase,
                                   "utime": utime,
                                   "stime": stime,
                                   "total": (utime+stime),
                                   "descr": descr,
+                                  "algo": algo,
                                   })
 
     # Print gathered data
     o = sys.stdout
-    params = { "pagetitle": "Primenumber Benchmark",
+    params = { "pagetitle": "Prime Number Benchmark",
                }
     o.write('''<html>
   <head>
@@ -65,6 +73,12 @@ def run():
       table tr th {
       border: 1px solid black;
       padding: 0px 1ex 0px 1ex;
+      }
+      table tr.wrong {
+      color: #888;
+      }
+      table tr.right {
+      color: #000;
       }
       tr > td {
       text-align: right;
@@ -110,10 +124,13 @@ def run():
     n = 0
     fastest = testcases[0]["total"]
     for tc in testcases:
-        n = n + 1
-        tc["rank"] = n
+        if tc["algo"] == "right":
+            n = n + 1
+            tc["rank"] = "%d" % (n)
+        else:
+            tc["rank"] = "&nbsp;"
         tc["relative"] = tc["total"] / fastest
-        o.write("  <tr><td>%(rank)d</td><td>%(total)1.2f</td><td>%(relative)1.2f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
+        o.write("  <tr class=\"%(algo)s\"><td>%(rank)s</td><td>%(total)1.2f</td><td>%(relative)1.2f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
     o.write('</table>\n</body>\n</html>\n')
 
 def main():
