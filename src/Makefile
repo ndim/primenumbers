@@ -42,7 +42,7 @@ build:
 
 .PHONY: benchmark
 benchmark: build
-	@set -x; for tc in $(TESTCASEDIR)/*.tc; \
+	@for tc in $(TESTCASEDIR)/*.tc; \
 	do \
 		[ -f "$$tc" ] || exit 101; \
 		name="$$(basename "$${tc}" .tc)"; \

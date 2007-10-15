@@ -2,6 +2,20 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 03:52:21 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-21
+
+    Summary:
+      remove shell verbosity
+    Revision:
+      primenumbers--main--0.1--patch-21
+
+    
+    
+
+    modified files:
+     ChangeLog src/Makefile
+
+
 2007-10-15 03:51:41 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-20
 
     Summary:
