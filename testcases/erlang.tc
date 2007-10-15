@@ -1,2 +1,3 @@
 straightforward port to Erlang (p4.erl)
 erlang
+MODULE=p4

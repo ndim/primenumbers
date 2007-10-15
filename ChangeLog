@@ -2,6 +2,31 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 03:38:50 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-19
+
+    Summary:
+      Add second Erlang algorithm
+    Revision:
+      primenumbers--main--0.1--patch-19
+
+    
+    
+
+    new files:
+     testcases/.arch-ids/erlang-sieve-ack.tc.id
+     testcases/erlang-sieve-ack.tc
+
+    modified files:
+     ChangeLog src/erlang/Makefile src/erlang/prime_sieve_ack.erl
+     src/erlang/run-erlang.sh testcases/erlang.tc
+
+    renamed files:
+     src/erlang/.arch-ids/p4.sh.id
+       ==> src/erlang/.arch-ids/run-erlang.sh.id
+     src/erlang/p4.sh
+       ==> src/erlang/run-erlang.sh
+
+
 2007-10-15 03:23:42 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-18
 
     Summary:
