@@ -2,6 +2,20 @@
 # arch-tag: automatic-ChangeLog--hun@n-dimensional.de--2004-public/primenumbers--main--0.1
 #
 
+2007-10-15 02:57:48 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-15
+
+    Summary:
+      typo fix
+    Revision:
+      primenumbers--main--0.1--patch-15
+
+    
+    
+
+    modified files:
+     ChangeLog testcases/erlang.tc
+
+
 2007-10-15 02:57:06 GMT	Hans Ulrich Niedermann <hun@n-dimensional.de>	patch-14
 
     Summary:
