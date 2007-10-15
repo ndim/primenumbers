@@ -66,6 +66,21 @@ def run():
       border: 1px solid black;
       padding: 0px 1ex 0px 1ex;
       }
+      tr > td {
+      text-align: right;
+      }
+      tr > td+td {
+      text-align: right;
+      }
+      tr > td+td+td {
+      text-align: right;
+      }
+      tr > td+td+td+td {
+      text-align: left;
+      }
+      tr > td+td+td+td+td {
+      text-align: left;
+      }
     </style>
   </head>
   <body>
