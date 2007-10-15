@@ -26,10 +26,13 @@
 %% The idea behind this program is detailed starting 28:30 in this video:
 %% <a href="http://video.google.com/videoplay?docid=810232012617965344">http://video.google.com/videoplay?docid=810232012617965344</a>
 %% 
+%% Ideas for improvement:
+%%   - do not instantiate filter for N if we are sure we will not need it
+%%     ( N > sqrt(largest_prime_in_array) )
 
 -module(prime_sieve_ack).
 -export([start/0, start/1]).
--export([sieve/2, counter/4]).
+-export([sieve/3, counter/5]).
 
 
 %% @spec test_next(Next, TestMe) -> Pid
@@ -37,12 +40,12 @@
 %% @doc Decide whether <tt>TestMe</tt> is prime, handle it
 %% accordingly, and return the proper next sieve in the chain for
 %% future checks.
-test_next(none, TestMe) ->
+test_next(none, Index, TestMe) ->
     %% Hooray! We found a prime number!
-    io:format("~w~n", [TestMe]),
+    io:format("~w ~w~n", [Index, TestMe]),
     %% Add a sieve removing the multiples of this prime number.
-    spawn(?MODULE, sieve, [none, TestMe]);
-test_next(Next, TestMe) ->
+    spawn(?MODULE, sieve, [none, Index+1, TestMe]);
+test_next(Next, _Index, TestMe) ->
     %% Delegate prime testing to next sieve in sieve chain.
     Next ! {self(), test, TestMe},
     receive {Next, ack, TestMe} -> Next end.
@@ -65,17 +68,17 @@ done_next(Next) ->
 %% Counts to <tt>Max</tt>, sending each number to <tt>Next</tt>.
 %% Signals <tt>Next</tt> and <tt>Controller</tt> when <tt>Max</tt> is
 %% reached.
-counter(Controller, Next, Counter, Max) when Counter < Max ->
-    NewNext = test_next(Next, Counter),
-    counter(Controller, NewNext, Counter+1, Max);
-counter(Controller, Next, _Counter, _Max) ->
+counter(Controller, Next, Index, Counter, Max) when Counter < Max ->
+    NewNext = test_next(Next, Index, Counter),
+    counter(Controller, NewNext, Index, Counter+1, Max);
+counter(Controller, Next, _Index, _Counter, _Max) ->
     done_next(Next),
     Controller ! {self(), done}.
 
 
 %% @spec sieve(Next, N) -> irrelevant_value
 %% @doc Sieve filtering out all multiples of N, passing on all other numbers.
-sieve(Next, N) ->
+sieve(Next, Index, N) ->
     receive
 	{Sender, done} ->
 	    %% wait for next filter to finish
@@ -87,22 +90,23 @@ sieve(Next, N) ->
 	    %% that we are done with this number...
 	    Sender ! {self(), ack, TestMe},
 	    %% ...and wait for the next prime candiate.
-	    sieve(Next, N);
+	    sieve(Next, Index, N);
 	{Sender, test, TestMe} ->
 	    %% TestMe may be a prime number. Delegate testing...
-	    NewNext = test_next(Next, TestMe),
+	    NewNext = test_next(Next, Index, TestMe),
 	    %% ...and signal sender that we are done with this number...
 	    Sender ! {self(), ack, TestMe},
 	    %% ...and wait for the next prime candiate.
-	    sieve(NewNext, N)
+	    sieve(NewNext, Index, N)
     end.
 
 
 %% @spec start(Max) -> done
 %% @doc Start generating prime numbers smaller than <tt>Max</tt>.
 start(Max) when is_integer(Max) ->
-    Sieve2 = spawn(?MODULE, sieve, [none, 2]),
-    Counter = spawn(?MODULE, counter, [self(), Sieve2, 2, Max]),
+    io:format("~w ~w~n", [0, 2]),
+    Sieve2 = spawn(?MODULE, sieve, [none, 1, 2]),
+    Counter = spawn(?MODULE, counter, [self(), Sieve2, 0, 2, Max]),
     receive
 	{Counter, done} ->
 	    done
