@@ -1,0 +1,5 @@
+Java using gcj-4.0 -O4
+java
+CFLAGS=-O4
+CLASSPATH=/usr/share/java/libgcj-4.0.2.jar
+GCJ=gcj-4.0

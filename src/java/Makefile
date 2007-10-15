@@ -16,7 +16,7 @@ primenumbers.class: primenumbers.java
 else
 
 primenumbers: primenumbers.java
-	gcj $(CFLAGS) --main=primenumbers -o $@ $<
+	$(GCJ) $(CFLAGS) --main=primenumbers -o $@ $<
 
 endif
 
