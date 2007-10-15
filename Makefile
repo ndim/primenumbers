@@ -28,7 +28,8 @@ build benchmark:
 
 ########################################################################
 benchmark.html: analyze-benchmark.py $(wildcard results/*)
-	python $< results/ > $@
+	python $< results/ > "$@.tmp"
+	mv -f "$@.tmp" "$@"
 
 ########################################################################
 

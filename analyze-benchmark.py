@@ -5,7 +5,7 @@ import os
 import re
 import stat
 
-def main():
+def run():
     topdir = os.path.dirname(sys.argv[0])
     resultdir = os.path.join(topdir,"results")
     testcasedir = os.path.join(topdir,"testcases")
@@ -90,6 +90,9 @@ def main():
         tc["relative"] = tc["total"] / fastest
         o.write("  <tr><td>%(rank)d</td><td>%(total)1.2f</td><td>%(relative)1.2f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
     o.write('</table>\n</body>\n</html>\n')
+
+def main():
+    run()
 
 if __name__ == '__main__':
     main()
