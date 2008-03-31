@@ -1,0 +1,6 @@
+*~
+ChangeLog
+*.beam
+build
+results
+primenumbers-*.tar.gz

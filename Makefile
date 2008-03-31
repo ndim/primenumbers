@@ -46,7 +46,7 @@ distclean: clean
 ########################################################################
 
 DISTFILES=Makefile COPYING README benchmark.mk src/ testcases/ ChangeLog
-DISTDIR:="primenumbers-$(shell date -I)"
+DISTDIR:=primenumbers-$(shell date -I)
 
 .PHONY: dist
 dist: $(DISTDIR).tar.gz
