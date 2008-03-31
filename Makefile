@@ -52,16 +52,10 @@ DISTDIR:="primenumbers-$(shell date -I)"
 dist: $(DISTDIR).tar.gz
 
 $(DISTDIR).tar.gz: $(DISTFILES)
-	rm -rf $(DISTDIR)
-	mkdir $(DISTDIR)
-	cp -rl $(DISTFILES) $(DISTDIR)
-	tar cvfz $(DISTDIR).tar.gz \
-		--exclude='*~' --exclude=CVS \
-		$(DISTDIR)
-	rm -rf $(DISTDIR)
+	git archive --format=tar --prefix="$(DISTDIR)/" HEAD | GZIP=--best gzip -c > "$@"
 
 # This isn't a real GNU style changelog yet, but it is still
 # better than nothing.
 .PHONY: ChangeLog
 ChangeLog:
-	tla changelog > "$@"
+	git log > "$@"
