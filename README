@@ -55,5 +55,5 @@ The benchmark results will be stored in results/.
 Version Control
 ===============
 
-Migrated to arch (tla).
+Migrated to git from arch (tla).
 
