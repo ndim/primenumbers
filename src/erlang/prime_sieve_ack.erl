@@ -46,7 +46,7 @@ test_next(none, Index, TestMe, Max) ->
     %% Add a sieve removing the multiples of this prime number.
     case (TestMe*TestMe) =< Max of
 	true ->
-	    {Index, spawn(?MODULE, sieve, [none, Index+1, TestMe, Max])};
+	    {Index, spawn_link(?MODULE, sieve, [none, Index+1, TestMe, Max])};
 	false ->
 	    {Index+1, none}
     end;
@@ -110,8 +110,8 @@ sieve(Next, Index, N, Max) ->
 %% @doc Start generating prime numbers smaller than <tt>Max</tt>.
 start(Max) when is_integer(Max) ->
     io:format("~w ~w~n", [0, 2]),
-    Sieve2 = spawn(?MODULE, sieve, [none, 1, 2, Max]),
-    Counter = spawn(?MODULE, counter, [self(), Sieve2, 0, 2, Max]),
+    Sieve2 = spawn_link(?MODULE, sieve, [none, 1, 2, Max]),
+    Counter = spawn_link(?MODULE, counter, [self(), Sieve2, 0, 2, Max]),
     receive
 	{Counter, done} ->
 	    done
