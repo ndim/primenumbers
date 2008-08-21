@@ -1,0 +1,4 @@
+prime number sieve in Erlang (different algo for comparison, no SMP)
+erlang
+export MODULE=prime_sieve_ack
+export ERL_OPTS="-smp disable"

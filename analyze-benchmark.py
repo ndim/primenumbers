@@ -41,6 +41,8 @@ def run():
 
                 # Ugly hardcoded blacklist
                 if tcase in ["erlang-sieve-ack",
+                             "erlang-sieve-ack-nosmp",
+                             "erlang-sieve-ack-smp",
                              ]:
                     algo = "wrong"
                 else:
