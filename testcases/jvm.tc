@@ -1,4 +1,4 @@
-DISABLED Java using Sun JVM j2sdk1.5
+Java using JVM (OpenJDK 1.6.0)
 java
 USE_JAVA_VM=1
-JAVA_HOME=/usr/lib/j2sdk1.5-sun/
+JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0
