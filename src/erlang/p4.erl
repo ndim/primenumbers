@@ -53,23 +53,23 @@ xqrt(X) when X > 0 ->
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Check whether Test is prime according to the list or notprime
+% Check whether Test is prime according to the list or not
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-bork(Test, Sqrt, [Head|Tail]) when Head > Sqrt ->
-    %io:format("bork ~w ~w ~w Head > Sqrt~n", [Test,Sqrt,[Head|Tail]]),
+is_prime(Test, Sqrt, [Head|Tail]) when Head > Sqrt ->
+    %io:format("is_prime ~w ~w ~w Head > Sqrt~n", [Test,Sqrt,[Head|Tail]]),
     %List = [Head|Tail],
     %{prime,[Test|List]};
-    bork(Test, Sqrt, Tail);
-bork(Test, _Sqrt, [Head|_Tail]) when (Test rem Head) == 0 ->
-    %io:format("bork ~w ~w ~w Test rem Head == 0~n", [Test,_Sqrt,[Head|_Tail]]),
-    notprime;
-bork(Test, Sqrt, [_Head|Tail]) ->
-    %io:format("bork ~w ~w ~w otherwise ~n", [Test,Sqrt,[_Head|Tail]]),
-    bork(Test, Sqrt, Tail);
-bork(_Test, _Sqrt, []) ->
-    %io:format("bork ~w ~w ~w PRIME ~n", [_Test,_Sqrt,[]]),
-    prime.
+    is_prime(Test, Sqrt, Tail);
+is_prime(Test, _Sqrt, [Head|_Tail]) when (Test rem Head) == 0 ->
+    %io:format("is_prime ~w ~w ~w Test rem Head == 0~n", [Test,_Sqrt,[Head|_Tail]]),
+    false;
+is_prime(Test, Sqrt, [_Head|Tail]) ->
+    %io:format("is_prime ~w ~w ~w otherwise ~n", [Test,Sqrt,[_Head|Tail]]),
+    is_prime(Test, Sqrt, Tail);
+is_prime(_Test, _Sqrt, []) ->
+    %io:format("is_prime ~w ~w ~w PRIME ~n", [_Test,_Sqrt,[]]),
+    true.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,10 +79,10 @@ bork(_Test, _Sqrt, []) ->
 chalk(Test, List, MaxNum) when length(List) < MaxNum ->
     Sqrt = xqrt(Test),
     %io:format("chalk ~w ~w ~w~n",[Test,Sqrt,List]),
-    case bork(Test, Sqrt, List) of
-	notprime ->
+    case is_prime(Test, Sqrt, List) of
+	false ->
 	    chalk(Test+2, List, MaxNum);
-	prime ->
+	true ->
 	    chalk(Test+2, [Test|List], MaxNum)
     end;
 chalk(_Test, List, _MaxNum) ->
