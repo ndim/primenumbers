@@ -33,6 +33,10 @@
 -module(prime_sieve_ack).
 -export([start/0, start/1, start/2]).
 -export([sieve/5, counter/6]).
+-export([receiver/4, primelist/1]).
+
+
+-compile([export_all]).
 
 
 -define(MAX_VALUE, 821642). %% limit for the first 2^16 prime numbers
@@ -77,6 +81,13 @@ done_next(Next) ->
 %% Signals <tt>Next</tt> and <tt>Controller</tt> when <tt>Max</tt> is
 %% reached.
 counter(Controller, Next, Index, Counter, Max, ReportFun) when Counter < Max ->
+    receive
+        {Someone, done} ->
+            done_next(Next),
+            Controller ! {self(), done},
+            Someone ! {self, done}
+        after 0 -> true
+    end,
     {NewIndex, NewNext} = test_next(Next, Index, Counter, Max, ReportFun),
     counter(Controller, NewNext, NewIndex, Counter+1, Max, ReportFun);
 counter(Controller, Next, _Index, _Counter, _Max, _ReportFun) ->
@@ -109,6 +120,50 @@ sieve(Next, Index, N, Max, ReportFun) ->
     end.
 
 
+%% @spec receive(Index, PrimeList, Count) -> whatever
+%% @doc Process accumulating a list of primes.
+receiver(Index, PrimeList, Count, Controller) ->
+    receive
+        {Pid, prime, I, P} ->
+            Pid ! {self(), ack, I, P},
+            if
+                Index >= Count ->
+                    Controller ! {self(), done},
+                    receive {Controller, done} -> done end;
+                true -> ok
+            end,
+            receiver(Index+1, [P|PrimeList], Count, Controller);
+        {Pid, prime_list} ->
+            Pid ! {self(), prime_list, Index, PrimeList}
+    end.
+
+
+%% @spec primelist(Count) -> list()
+%% @doc Return list of the first Count prime numbers.
+primelist(Count) when is_integer(Count), Count > 0 ->
+    Receiver = spawn_link(?MODULE, receiver, [0, [], Count, counter]),
+    ReportFun = fun(I,P) ->
+                   Receiver ! {self(), prime, I, P},
+                   receive {Receiver, ack, I, P} -> ok end
+                end,
+    start(ReportFun),
+    Receiver ! {self(), prime_list},
+    receive
+        {Receiver, prime_list, _Index, PrimeList} ->
+            PrimeList
+    end.
+
+trace_primelist(Count) ->
+    dbg:tracer(),
+    lists:foreach(fun(F) ->
+        dbg:tpl(?MODULE, F, '_', dbg:fun2ms(fun(_) -> return_trace() end))
+    end, [start, primelist, trace_primelist,
+          counter, sieve, receiver,
+          done_next, test_next]),
+    dbg:p(all, [c]),
+    primelist(Count).
+
+
 %% @spec default_report(Index, Prime) -> ok
 %% @doc Default prime reporting function, printing both index and prime.
 default_report(Index, Prime) when is_integer(Index), is_integer(Prime) ->
@@ -134,6 +189,7 @@ start(Max, ReportFun) when is_integer(Max), is_function(ReportFun) ->
     ok = ReportFun(0,2),
     Sieve2 = spawn_link(?MODULE, sieve, [none, 1, 2, Max, ReportFun]),
     Counter = spawn_link(?MODULE, counter, [self(), Sieve2, 0, 2, Max, ReportFun]),
+    register(counter, Counter), % FIXME: race condition!
     receive
 	{Counter, done} ->
 	    done
