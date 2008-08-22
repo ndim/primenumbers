@@ -1,6 +1,9 @@
 *~
 ChangeLog
 *.beam
+*.COVER.out
+*.swp
+benchmark.html
 build
 results
 primenumbers-*.tar.gz
