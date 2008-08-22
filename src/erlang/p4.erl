@@ -53,22 +53,25 @@ xqrt(X) when X > 0 ->
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Check whether Test is prime according to the list or not
+% Check whether Test is prime according to the list of primes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 is_prime(Test, Sqrt, [Head|Tail]) when Head > Sqrt ->
-    %io:format("is_prime ~w ~w ~w Head > Sqrt~n", [Test,Sqrt,[Head|Tail]]),
-    %List = [Head|Tail],
-    %{prime,[Test|List]};
+    %% skip testing primes larger than square root
+    %% io:format("is_prime ~w ~w ~w Head > Sqrt~n", [Test,Sqrt,[Head|Tail]]),
     is_prime(Test, Sqrt, Tail);
 is_prime(Test, _Sqrt, [Head|_Tail]) when (Test rem Head) == 0 ->
-    %io:format("is_prime ~w ~w ~w Test rem Head == 0~n", [Test,_Sqrt,[Head|_Tail]]),
+    %% Test can be divided by Head, and thus is non-prime
+    %% io:format("is_prime ~w ~w ~w Test rem Head == 0~n",
+    %%           [Test,_Sqrt,[Head|_Tail]]),
     false;
 is_prime(Test, Sqrt, [_Head|Tail]) ->
-    %io:format("is_prime ~w ~w ~w otherwise ~n", [Test,Sqrt,[_Head|Tail]]),
+    %% Test cannot be divided by Head, continue checking against Tail
+    %% io:format("is_prime ~w ~w ~w otherwise ~n", [Test,Sqrt,[_Head|Tail]]),
     is_prime(Test, Sqrt, Tail);
 is_prime(_Test, _Sqrt, []) ->
-    %io:format("is_prime ~w ~w ~w PRIME ~n", [_Test,_Sqrt,[]]),
+    %% Test is prime.
+    %% io:format("is_prime ~w ~w ~w PRIME ~n", [_Test,_Sqrt,[]]),
     true.
 
 
