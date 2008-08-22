@@ -45,7 +45,7 @@
 %% future checks.
 test_next(none, Index, TestMe, Max, ReportFun) ->
     %% Hooray! We found a prime number!
-    ReportFun(Index, TestMe),
+    ok = ReportFun(Index, TestMe),
     %% Add a sieve removing the multiples of this prime number.
     case (TestMe*TestMe) =< Max of
 	true ->
@@ -131,7 +131,7 @@ start() ->
 
 %% The actual implementation.
 start(Max, ReportFun) when is_integer(Max), is_function(ReportFun) ->
-    ReportFun(0,2),
+    ok = ReportFun(0,2),
     Sieve2 = spawn_link(?MODULE, sieve, [none, 1, 2, Max, ReportFun]),
     Counter = spawn_link(?MODULE, counter, [self(), Sieve2, 0, 2, Max, ReportFun]),
     receive
