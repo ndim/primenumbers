@@ -31,8 +31,11 @@
 %%     ( N*N > largest_prime_in_array )
 
 -module(prime_sieve_ack).
--export([start/0, start/1]).
--export([sieve/4, counter/5]).
+-export([start/0, start/1, start/2]).
+-export([sieve/5, counter/6]).
+
+
+-define(MAX_VALUE, 821642). %% limit for the first 2^16 prime numbers
 
 
 %% @spec test_next(Next, TestMe) -> Pid
@@ -40,17 +43,17 @@
 %% @doc Decide whether <tt>TestMe</tt> is prime, handle it
 %% accordingly, and return the proper next sieve in the chain for
 %% future checks.
-test_next(none, Index, TestMe, Max) ->
+test_next(none, Index, TestMe, Max, ReportFun) ->
     %% Hooray! We found a prime number!
-    io:format("~w ~w~n", [Index, TestMe]),
+    ReportFun(Index, TestMe),
     %% Add a sieve removing the multiples of this prime number.
     case (TestMe*TestMe) =< Max of
 	true ->
-	    {Index, spawn_link(?MODULE, sieve, [none, Index+1, TestMe, Max])};
+	    {Index, spawn_link(?MODULE, sieve, [none, Index+1, TestMe, Max, ReportFun])};
 	false ->
 	    {Index+1, none}
     end;
-test_next(Next, Index, TestMe, _Max) ->
+test_next(Next, Index, TestMe, _Max, _ReportFun) ->
     %% Delegate prime testing to next sieve in sieve chain.
     Next ! {self(), test, TestMe},
     receive {Next, ack, TestMe} -> {Index, Next} end.
@@ -73,17 +76,17 @@ done_next(Next) ->
 %% Counts to <tt>Max</tt>, sending each number to <tt>Next</tt>.
 %% Signals <tt>Next</tt> and <tt>Controller</tt> when <tt>Max</tt> is
 %% reached.
-counter(Controller, Next, Index, Counter, Max) when Counter < Max ->
-    {NewIndex, NewNext} = test_next(Next, Index, Counter, Max),
-    counter(Controller, NewNext, NewIndex, Counter+1, Max);
-counter(Controller, Next, _Index, _Counter, _Max) ->
+counter(Controller, Next, Index, Counter, Max, ReportFun) when Counter < Max ->
+    {NewIndex, NewNext} = test_next(Next, Index, Counter, Max, ReportFun),
+    counter(Controller, NewNext, NewIndex, Counter+1, Max, ReportFun);
+counter(Controller, Next, _Index, _Counter, _Max, _ReportFun) ->
     done_next(Next),
     Controller ! {self(), done}.
 
 
 %% @spec sieve(Next, N) -> irrelevant_value
 %% @doc Sieve filtering out all multiples of N, passing on all other numbers.
-sieve(Next, Index, N, Max) ->
+sieve(Next, Index, N, Max, ReportFun) ->
     receive
 	{Sender, done} ->
 	    %% wait for next filter to finish
@@ -95,30 +98,43 @@ sieve(Next, Index, N, Max) ->
 	    %% that we are done with this number...
 	    Sender ! {self(), ack, TestMe},
 	    %% ...and wait for the next prime candiate.
-	    sieve(Next, Index, N, Max);
+	    sieve(Next, Index, N, Max, ReportFun);
 	{Sender, test, TestMe} ->
 	    %% TestMe may be a prime number. Delegate testing...
-	    {NewIndex, NewNext} = test_next(Next, Index, TestMe, Max),
+	    {NewIndex, NewNext} = test_next(Next, Index, TestMe, Max, ReportFun),
 	    %% ...and signal sender that we are done with this number...
 	    Sender ! {self(), ack, TestMe},
 	    %% ...and wait for the next prime candiate.
-	    sieve(NewNext, NewIndex, N, Max)
+	    sieve(NewNext, NewIndex, N, Max, ReportFun)
     end.
+
+
+%% @spec default_report(Index, Prime) -> ok
+%% @doc Default prime reporting function, printing both index and prime.
+default_report(Index, Prime) when is_integer(Index), is_integer(Prime) ->
+    io:format("~w ~w~n", [Index, Prime]).
 
 
 %% @spec start(Max) -> done
 %% @doc Start generating prime numbers smaller than <tt>Max</tt>.
 start(Max) when is_integer(Max) ->
-    io:format("~w ~w~n", [0, 2]),
-    Sieve2 = spawn_link(?MODULE, sieve, [none, 1, 2, Max]),
-    Counter = spawn_link(?MODULE, counter, [self(), Sieve2, 0, 2, Max]),
-    receive
-	{Counter, done} ->
-	    done
-    end.
+    start(Max, fun default_report/2);
+start(ReportFun) when is_function(ReportFun) ->
+    start(?MAX_VALUE, ReportFun).
 
 
 %% @spec start() -> done
 %% @doc Start generating prime numbers smaller than a default value.
 start() ->
-    start(821642).
+    start(?MAX_VALUE, fun default_report/2).
+
+
+%% The actual implementation.
+start(Max, ReportFun) when is_integer(Max), is_function(ReportFun) ->
+    ReportFun(0,2),
+    Sieve2 = spawn_link(?MODULE, sieve, [none, 1, 2, Max, ReportFun]),
+    Counter = spawn_link(?MODULE, counter, [self(), Sieve2, 0, 2, Max, ReportFun]),
+    receive
+	{Counter, done} ->
+	    done
+    end.
