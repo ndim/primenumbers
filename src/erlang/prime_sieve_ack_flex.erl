@@ -108,7 +108,8 @@ sieve(Next, N, Receiver)
     end.
 
 
-%% @spec receiver(Index, List)
+%% @spec receiver(Index, List) -> whatever
+%% @doc Process collecting prime numbers in a list
 receiver(Controller, Count, Index, List)
     when is_pid(Controller), is_integer(Count),
          is_integer(Index), is_list(List) ->
@@ -127,6 +128,8 @@ receiver(Controller, Count, Index, List)
     end.
 
 
+%% @spec primelist(Count) -> list()
+%% @doc Return list of the first Count prime numbers
 primelist(Count) when is_integer(Count), Count > 0 ->
     Receiver = spawn_link(?MODULE, receiver, [self(), Count, 0, []]),
     Receiver ! {self(), prime, 2},
