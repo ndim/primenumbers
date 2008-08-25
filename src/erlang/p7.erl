@@ -45,8 +45,8 @@ xqrti(Xl,X) ->
 	    xqrti(Xi,X)
     end.
 
-xqrt(X) when X =:= 0 ->
-    X;
+xqrt(0) ->
+    0;
 xqrt(X) when X > 0 ->
     Xi = X div 2,
     xqrti(Xi,X).
