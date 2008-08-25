@@ -153,15 +153,16 @@ primelist(Count) when is_integer(Count), Count > 0 ->
             PrimeList
     end.
 
-trace_primelist(Count) ->
-    dbg:tracer(),
-    lists:foreach(fun(F) ->
-        dbg:tpl(?MODULE, F, '_', dbg:fun2ms(fun(_) -> return_trace() end))
-    end, [start, primelist, trace_primelist,
-          counter, sieve, receiver,
-          done_next, test_next]),
-    dbg:p(all, [c]),
-    primelist(Count).
+
+%% trace_primelist(Count) ->
+%%     dbg:tracer(),
+%%     lists:foreach(fun(F) ->
+%%         dbg:tpl(?MODULE, F, '_', dbg:fun2ms(fun(_) -> return_trace() end))
+%%     end, [start, primelist, trace_primelist,
+%%           counter, sieve, receiver,
+%%           done_next, test_next]),
+%%     dbg:p(all, [c]),
+%%     primelist(Count).
 
 
 %% @spec default_report(Index, Prime) -> ok
