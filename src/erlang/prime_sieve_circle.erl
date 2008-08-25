@@ -33,34 +33,29 @@
 -define(DEFAULT_MAX_INDEX, 65536).
 
 
--record(print_state,
-	{index = 0,
-	 prime_list = [],
-	 max_index}).
-
--record(collect_state,
+-record(index_state,
 	{index = 0,
 	 prime_list = [],
 	 max_index}).
 
 
-print_action(TestMe, #print_state{index=Index,
-				   prime_list=PrimeList,
-				   max_index=MaxIndex})
+print_action(TestMe, #index_state{index=Index,
+				  prime_list=PrimeList,
+				  max_index=MaxIndex})
   when Index < MaxIndex ->
     io:format("~p ~p~n", [Index, TestMe]),
-    #print_state{index=Index+1,
-		  prime_list=[TestMe|PrimeList],
-		  max_index=MaxIndex};
+    #index_state{index=Index+1,
+		 prime_list=[TestMe|PrimeList],
+		 max_index=MaxIndex};
 print_action(_TestMe, _State) ->
     done.
 
 
-collect_action(TestMe, #collect_state{index=Index,
-				      max_index=MaxIndex,
-				      prime_list=PrimeList})
+collect_action(TestMe, #index_state{index=Index,
+				    max_index=MaxIndex,
+				    prime_list=PrimeList})
   when Index < MaxIndex ->
-    #collect_state{index=Index+1,
+    #index_state{index=Index+1,
 		   max_index=MaxIndex,
 		   prime_list=[TestMe|PrimeList]};
 collect_action(_TestMe, _State) ->
@@ -136,8 +131,8 @@ run(Action, ActionState) ->
 
 
 primelist(MaxIndex) ->
-    #collect_state{prime_list=PrimeList}
-	= run(fun collect_action/2, #collect_state{max_index=MaxIndex}),
+    #index_state{prime_list=PrimeList}
+	= run(fun collect_action/2, #index_state{max_index=MaxIndex}),
     PrimeList.
 
 
@@ -146,6 +141,6 @@ primelist() ->
 
 
 start() ->
-    #print_state{max_index=?DEFAULT_MAX_INDEX}
-	= run(fun print_action/2, #print_state{max_index=?DEFAULT_MAX_INDEX}),
+    #index_state{max_index=?DEFAULT_MAX_INDEX}
+	= run(fun print_action/2, #index_state{max_index=?DEFAULT_MAX_INDEX}),
     ok.
