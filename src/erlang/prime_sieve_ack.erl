@@ -167,7 +167,7 @@ trace_primelist(Count) ->
 %% @spec default_report(Index, Prime) -> ok
 %% @doc Default prime reporting function, printing both index and prime.
 default_report(Index, Prime) when is_integer(Index), is_integer(Prime) ->
-    io:format("~w ~w~n", [Index, Prime]).
+    io:format("~p ~p~n", [Index, Prime]).
 
 
 %% @spec start(Max) -> done
