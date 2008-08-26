@@ -45,8 +45,8 @@ main() ->
     TestCounts = [
 		  10, 20, 30, 50, 70,
 		  100, 150, 200, 300, 500, 700,
-		  1000, 2000, 5000
-		  %% 10000
+		  1000
+                  , 2000, 5000, 10000
 		 ],
     Results = lists:map(fun(N) -> {N, main(N)} end, TestCounts),
     io:format("~p~n", [Results]),
