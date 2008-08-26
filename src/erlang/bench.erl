@@ -44,9 +44,8 @@ main(Count) ->
 main() ->
     %% {5000,prime_sieve_ack} takes 60 seconds on my Intel Core Duo T2500
     TestCounts = [
-		  10, 20, 30, 50, 70,
-		  100, 150, 200, 300, 500, 700,
-		  1000
+		  %% 10, 20, 30, 50, 70,
+		  100, 150, 200, 300, 500, 700, 1000
                   , 2000, 5000, 10000
 		 ],
     Results = lists:map(fun(N) -> {N, main(N)} end, TestCounts),
