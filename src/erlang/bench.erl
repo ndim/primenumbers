@@ -3,6 +3,14 @@
 -export([write_report/1]).
 
 
+%%
+%% Ideas:
+%%   * Instrument the code in the tested modules such that a running
+%%     filter process can report certain milestones to the benchmark.
+%%     This should save at least half the compute time.
+%%
+
+
 run_bench(Count) ->
     Modules = [p4, p5, p6, p7,
 	       prime_sieve_ack_flex,
