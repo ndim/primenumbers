@@ -1,4 +1,0 @@
-prime number sieve in Erlang (different algo for comparison, SMP)
-erlang
-export MODULE=prime_sieve_ack
-export ERL_OPTS="-smp enable +S 2"
