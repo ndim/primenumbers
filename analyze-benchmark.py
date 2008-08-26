@@ -43,6 +43,8 @@ def run():
                 if tcase in ["erlang-sieve-ack",
                              "erlang-sieve-ack-nosmp",
                              "erlang-sieve-ack-smp",
+                             "erlang-sieve-circle",
+                             "erlang-sieve-circle2",
                              ]:
                     algo = "wrong"
                 else:
