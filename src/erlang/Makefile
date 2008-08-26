@@ -14,6 +14,9 @@ include ../../benchmark.mk
 %.beam: %.erl
 	erlc $<
 
+new-report.txt: $(wildcard *.erl)
+	erlc *.erl && erl -noshell -s bench write_report report.txt -s init stop && cat report.txt
+
 reports: $(foreach x,eps svg png,report.$(x))
 
 report.eps: report.txt report.gnuplot Makefile
