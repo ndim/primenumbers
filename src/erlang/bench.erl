@@ -15,7 +15,8 @@ run_bench(Count) ->
     Modules = [p4, p5, p6, p7,
 	       prime_sieve_ack_flex,
 	       prime_sieve_circle,
-	       prime_sieve_circle2
+	       prime_sieve_circle2,
+	       prime_sieve_circle3
 	      ],
     lists:map(fun(M) ->
 		      io:format("~p ~p~n", [Count, M]),

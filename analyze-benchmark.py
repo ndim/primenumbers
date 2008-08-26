@@ -45,6 +45,7 @@ def run():
                              "erlang-sieve-ack-smp",
                              "erlang-sieve-circle",
                              "erlang-sieve-circle2",
+                             "erlang-sieve-circle3",
                              ]:
                     algo = "wrong"
                 else:

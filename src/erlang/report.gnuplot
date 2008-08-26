@@ -22,4 +22,5 @@ plot \
 	"report.txt" using ($1):(0.001*$5) title "p7" with linespoints lw 2, \
 	"report.txt" using ($1):(0.001*$6) title "prime_sieve_ack_flex" with linespoints lw 2, \
 	"report.txt" using ($1):(0.001*$7) title "prime_sieve_circle" with linespoints lw 2, \
-	"report.txt" using ($1):(0.001*$8) title "prime_sieve_circle2" with linespoints lw 2
+	"report.txt" using ($1):(0.001*$8) title "prime_sieve_circle2" with linespoints lw 2, \
+	"report.txt" using ($1):(0.001*$9) title "prime_sieve_circle3" with linespoints lw 2
