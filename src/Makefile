@@ -19,12 +19,14 @@ build:
 		builddir="$(BUILDDIR)/$$name"; \
 		mkdir -p "$$builddir" || exit 103; \
 		ln -sf "$$srcdir/Makefile" "$$builddir/Makefile" || exit 104; \
-		( ifs="$$IFS"; IFS="=$$IFS"; \
-		n=-2; while read var value; do \
+		( \
+		n=-2; while read var_value; do \
 			n=$$(($$n+1)); \
 			[ $$n -le 0 ] && continue; \
+			value="$${var_value#*=}"; \
+			var="$${var_value%%=$${value}}"; \
 			echo "[$$var] = [$$value]"; \
-			export $$var="$$value"; \
+			export $${var}="$$value"; \
 		done < "$$tc"; \
 		IFS="$$ifs"; \
 		VPATH="$$srcdir" $(MAKE) -C "$$builddir" "$@" ); \
