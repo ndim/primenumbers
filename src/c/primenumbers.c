@@ -23,7 +23,7 @@
 #ifdef FAST_OUTPUT
 #include <unistd.h>
 
-inline static ssize_t write_data(int t1, int t2)
+inline static ssize_t write_data(unsigned int t1, unsigned int t2)
 {
   static char buf[] = "0000000000 0000000000\n";
   int n;
@@ -37,13 +37,18 @@ inline static ssize_t write_data(int t1, int t2)
   }
   return write(STDOUT_FILENO, buf, 10+10+2);
 }
+#else
+inline static int write_data(unsigned int i, unsigned int p)
+{
+    printf("%u %u\n", i, p);
+}
 #endif /* FAST_OUTPUT */
 
 #define MAX (1<<16)
 
 static unsigned int p[MAX];
 
-inline static unsigned int sqrt(unsigned int x)
+inline static unsigned int xqrt(unsigned int x)
 {
   unsigned int i,l;
   if (x <= 0) return 0;
@@ -67,11 +72,11 @@ int main()
     unsigned int s;
     p[i] = p[i-1] + 2;
     k = 1;
-    s = sqrt(p[i]);
+    s = xqrt(p[i]);
     while ( (k<i) && (p[k] <= s) ) {
       if ((p[i] % p[k]) == 0) {
         p[i] += 2;
-        s = sqrt(p[i]);
+        s = xqrt(p[i]);
         k = 1;
       } else {
         ++k;
@@ -80,11 +85,7 @@ int main()
   }
 
   for (i=0; i<MAX; ++i) {
-#ifdef FAST_OUTPUT
     write_data(i, p[i]);
-#else
-    printf("%u %u\n", i, p[i]);
-#endif
   }
 
   return 0;
