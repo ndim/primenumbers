@@ -1,0 +1,3 @@
+C without any optimization options
+c
+CFLAGS=
