@@ -12,10 +12,10 @@
 
 
 run_bench(Count) ->
-    Modules = [p4, p5, p6, p7,
+    Modules = [p4, p5, %p6, p7, % behave almost like p5
 	       prime_sieve_ack_flex,
 	       prime_sieve_circle,
-	       prime_sieve_circle2,
+	       %prime_sieve_circle2 % behaves almost like prime_sieve_circle3
 	       prime_sieve_circle3
 	      ],
     lists:map(fun(M) ->
@@ -41,13 +41,16 @@ main(Count) ->
     Results.
 
 
+test_points(N, Scale) ->
+    [round(Scale*math:exp(math:log(10)*float(X)/float(N))) || X <- lists:seq(0, N-1)].
+
+
 main() ->
     %% {5000,prime_sieve_ack} takes 60 seconds on my Intel Core Duo T2500
-    TestCounts = [
-		  %% 10, 20, 30, 50, 70,
-		  100, 150, 200, 300, 500, 700, 1000
-                  , 2000, 5000, 10000
-		 ],
+    TestCounts = lists:concat([test_points(6, 100),
+    %%                           test_points(3, 1000), [10000]]),
+                               test_points(3, 1000),
+                               test_points(3, 10000), [100000]]),
     Results = lists:map(fun(N) -> {N, main(N)} end, TestCounts),
     io:format("~p~n", [Results]),
     Results.
