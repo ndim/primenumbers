@@ -1,0 +1,52 @@
+#!/usr/bin/ruby
+
+def xqrt(x)
+	if x <= 0
+		return 0
+	elsif x == 1
+		return 1
+	else
+		i = x / 2
+		while true do
+			l = i
+			i = (l + x/l)/2
+			li = l-i
+			if -1 <= li and li <= 1 then
+				return (i+x/i)/2
+			end
+		end
+	end
+end
+
+def test_xqrt()
+	for count in 0..30
+		rt = xqrt(count)
+		puts "Moo " + count.to_s + " " + rt.to_s
+		count = count + 1
+	end
+end
+
+def calc_prime_list(max)
+	p=[2,3]
+	for i in 2..max
+		p[i] = p[i-1] + 2
+		k = 1
+		s = xqrt(p[i])
+		while k<i and p[k]<=s do
+			if (p[i] % p[k]) == 0 then
+				p[i] += 2
+				s = xqrt(p[i])
+				k = 1
+			else
+				k += 1
+			end
+		end
+	end
+	return p
+end
+
+n=0
+calc_prime_list(65536).each do |prime|
+	puts n.to_s + " " + prime.to_s
+	n+=1
+end
