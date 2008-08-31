@@ -1,0 +1,84 @@
+#!/bin/bash
+
+xqrt() {
+	x=$1
+	if [ $x -le 0 ]
+	then
+		echo 0
+		return
+	fi
+	declare -i i=$((x/2))
+	while :
+	do
+		declare -i l=i
+		i=l+x/l
+		i=i/2
+		declare -i li=l-i
+		if [ -1 -le $li -a $li -le 1 ]
+		then
+			echo $(((i+x/i)/2))
+			return
+		fi
+	done
+}
+
+test_xqrt() {
+	for n in $(seq 0 30)
+	do
+		echo $n $(xqrt $n)
+	done
+}
+
+
+echo_primes() {
+	declare -i n=0
+	#echo "echo_primes $@"
+	count=$#
+	for ((n=0; n<$count; n=n+1))
+	do
+		echo "$n $1"
+		shift
+	done
+}
+
+
+prime_iter() {
+	max=$1
+	declare -a p
+	p=(2 3)
+	for ((i=2; i<$max; i=i+1))
+	do
+		declare -i k s
+		p[i]=$(( ${p[i-1]}+2 ))
+		k=1
+		s=$(xqrt ${p[i]})
+		while [ $k -lt $i -a ${p[k]} -le $s ]
+		do
+			if [ $(( ${p[i]} % ${p[k]} )) -eq 0 ]
+			then
+				p[i]=$((${p[i]}+2))
+				s=$(xqrt ${p[i]})
+				k=1
+			else
+				k=k+1
+			fi
+		done
+	done
+	echo_primes "${p[@]}"
+}
+
+
+test_primes() {
+	# echo_primes 2 3 5 7 11
+	prime_iter 200
+}
+
+
+test_all() {
+	# test_xqrt
+	test_primes
+}
+
+# test_all
+
+prime_iter ${1-65536}
