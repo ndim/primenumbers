@@ -19,6 +19,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #ifdef FAST_OUTPUT
 #include <unistd.h>
@@ -46,8 +47,6 @@ inline static int write_data(unsigned int i, unsigned int p)
 
 #define MAX (1<<16)
 
-static unsigned int p[MAX];
-
 inline static unsigned int xqrt(unsigned int x)
 {
   unsigned int i,l;
@@ -62,12 +61,14 @@ inline static unsigned int xqrt(unsigned int x)
   }
 }
 
-int main()
+
+unsigned int *primelist(unsigned int max)
 {
-  int i;
+  unsigned int i;
+  unsigned int *p = malloc(max*sizeof(*p));
   p[0] = 2;
   p[1] = 3;
-  for (i=2; i<MAX; ++i) {
+  for (i=2; i<max; ++i) {
     unsigned int k;
     unsigned int s;
     p[i] = p[i-1] + 2;
@@ -83,10 +84,32 @@ int main()
       }
     }
   }
+  return p;
+}
 
-  for (i=0; i<MAX; ++i) {
-    write_data(i, p[i]);
+
+void print_primes(unsigned int *primes, unsigned int max)
+{
+  unsigned int i;
+  for (i=0; i<max; ++i) {
+    write_data(i, primes[i]);
+  }
+}
+
+
+int main(int argc, char *argv[])
+{
+  unsigned int max = MAX;
+  unsigned int *p = NULL;
+
+  if (argc == 2) {
+    long int tmp = strtol(argv[1], NULL, 10);
+    max = (unsigned int) tmp;
   }
 
+  p = primelist(max);
+  print_primes(p, max);
+
+  free(p);p=NULL;
   return 0;
 }
