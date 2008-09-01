@@ -1,0 +1,9 @@
+#!/usr/bin/php
+<?php
+
+function foo() {
+	return "Bar";
+}
+
+echo "Moo", foo(), "\n";
+?>
