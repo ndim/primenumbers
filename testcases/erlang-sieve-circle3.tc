@@ -1,3 +1,3 @@
 prime number sieve in Erlang (yet another algo for comparison)
 erlang
-export MODULE=prime_sieve_circle2
+export MODULE=prime_sieve_circle3
