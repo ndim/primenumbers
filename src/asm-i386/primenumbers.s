@@ -19,7 +19,7 @@
 */
 
 /* #include "primenumbers_asm.h" */
-	
+
 /**********************************************************************/
 .data
 starting:
@@ -37,7 +37,7 @@ msgend:
 	.local	initprimes
 initprimes:
 	/* init table with 2 and 3 */
-	movl	$2, primetable	
+	movl	$2, primetable
 	movl	$3, primetable+4
 	movl	$2, %edi		/* "new" index */
 
@@ -87,16 +87,16 @@ __innerloop:
 	addl	$2, primetable(,%edi,4)	/* p[i] = p[i] + 2 ; */
 	movl    $1,%esi		/* revert else branch */
 	jmp	sqrt	/* end while loop */
-	
+
 __innerfinished:
-	
+
 	addl	$1, %edi
 	cmpl	$(1<<16), %edi
 	jb	__mainloop
-	
+
 	/* end of for loop */
 	ret
-	
+
 .global	mainp
 mainp:
 /*
