@@ -19,9 +19,8 @@
 
 "Python version with array() of prime number tests in misc languages"
 
-__revision__ = "1.0"
 
-
+import sys
 import array
 
 
@@ -37,10 +36,14 @@ def sqrt(x):
             return (h+x/h)/2
 
 
-p = array.array('L', [0]*(1<<16))
+max = (1<<16)
+if len(sys.argv) == 2:
+    max = int(sys.argv[1])
+
+p = array.array('L', [0]*max)
 p[0] = 2
 p[1] = 3
-for i in range(2, 1<<16):
+for i in range(2, max):
     p[i] = p[i-1] + 2
     k = 1
     s = sqrt(p[i])
@@ -52,7 +55,7 @@ for i in range(2, 1<<16):
         else:
             k = k + 1
 
-for i in range(0, 1<<16):
+for i in range(0, max):
     print "%u %u" % (i, p[i])
 
 

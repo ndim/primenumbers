@@ -20,6 +20,12 @@
 use integer;
 $MAX = 2**16;
 
+if ($#ARGV == 0) {
+  # print $#ARGV, "\n";
+  # print @ARGV, "\n";
+  $MAX = int($ARGV[0]);
+}
+# print $MAX, "\n";
 main();
 
 sub sqrt_
