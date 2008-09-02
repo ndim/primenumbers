@@ -18,18 +18,27 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "primenumbers.h"
 
-extern unsigned int primetable[MAX];
+extern unsigned int *primetable;
+extern unsigned int max;
 extern void mainp();
 
-int main()
+int main(int argc, char *argv[])
 {
   unsigned int i;
+  if (argc == 2) {
+    max = atoi(argv[1]);
+  } else {
+    max = MAX;
+  }
+  primetable = malloc(sizeof(*primetable)*max);
   mainp();
-  for (i=0; i<MAX; ++i) {
+  for (i=0; i<max; ++i) {
     printf("%u %u\n",i,primetable[i]);
   }
+  free(primetable);
   return 0;
 }

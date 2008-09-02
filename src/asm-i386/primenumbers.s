@@ -31,28 +31,31 @@ msgend:
 	len_finished = msgend - finished
 /**********************************************************************/
 	.global primetable
-	.comm	primetable, 4*(1<<16)
+	.comm	primetable, 4
+        .global max
+        .comm   max, 4
 /**********************************************************************/
 .text
 	.local	initprimes
 initprimes:
+        movl    primetable, %ebp
 	/* init table with 2 and 3 */
-	movl	$2, primetable
-	movl	$3, primetable+4
+	movl	$2, (%ebp)
+	movl	$3, 4(%ebp)
 	movl	$2, %edi		/* "new" index */
 
 __mainloop:
 	/* p[new] = p[old] + 2 ; i = 2 */
-	movl	primetable-4(,%edi,4), %eax
+	movl	-4(%ebp,%edi,4), %eax
 	movl	$1, %esi
 	addl	$2, %eax
-	movl	%eax,primetable(,%edi,4)
+	movl	%eax,(%ebp,%edi,4)
 
-sqrt:	movl	primetable(,%edi,4), %ecx	/* %ecx = i */
+sqrt:	movl	(%ebp,%edi,4), %ecx	/* %ecx = i */
 	shrl	$1, %ecx	/* i initial value x/2 */
 
 sqrtloop:
-	movl	primetable(,%edi,4), %eax	/* edx:eax = x */
+	movl	(%ebp,%edi,4), %eax	/* edx:eax = x */
 	clrl	%edx
 	movl	%ecx, %ebx			/* ebx = l */
 	divl	%ebx
@@ -63,7 +66,7 @@ sqrtloop:
 	incl	%ebx		/* {-1,0,1} -> {0,1,2} */
 	cmpl	$2, %ebx
 	ja	sqrtloop	/* nice way to determine abs val */
-	movl	primetable(,%edi,4), %eax
+	movl	(%ebp,%edi,4), %eax
 	clrl	%edx
 	divl	%ecx
 	addl	%eax, %ecx
@@ -74,24 +77,24 @@ __innerloop:
 	cmpl	%edi, %esi
 	jnb	__innerfinished
 	/* ... && p[k] <= sqrt(p[i]) */
-	cmpl	%ecx, primetable(,%esi,4)
+	cmpl	%ecx, (%ebp,%esi,4)
 	ja	__innerfinished
 	/* if ((p[i] % p[k]) == 0) */
 	clrl	%edx
-	movl	primetable(,%edi,4), %eax
-	movl	primetable(,%esi,4), %ebx
+	movl	(%ebp,%edi,4), %eax
+	movl	(%ebp,%esi,4), %ebx
 	divl	%ebx
 	incl	%esi	/* assume else branch */
 	cmpl	$0, %edx
 	jne	__innerloop	/* else assumption was correct */
-	addl	$2, primetable(,%edi,4)	/* p[i] = p[i] + 2 ; */
+	addl	$2, (%ebp,%edi,4)	/* p[i] = p[i] + 2 ; */
 	movl    $1,%esi		/* revert else branch */
 	jmp	sqrt	/* end while loop */
 
 __innerfinished:
 
 	addl	$1, %edi
-	cmpl	$(1<<16), %edi
+	cmpl	max, %edi
 	jb	__mainloop
 
 	/* end of for loop */
