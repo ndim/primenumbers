@@ -19,6 +19,7 @@
 
 """primenumbers -- straight python version of prime number test"""
 
+import math
 import sys
 
 def sqrt(x):
