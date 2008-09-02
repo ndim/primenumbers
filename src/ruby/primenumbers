@@ -46,7 +46,8 @@ def calc_prime_list(max)
 end
 
 n=0
-calc_prime_list(65536).each do |prime|
+max=65536
+calc_prime_list(max-1).each do |prime|
 	puts n.to_s + " " + prime.to_s
 	n+=1
 end
