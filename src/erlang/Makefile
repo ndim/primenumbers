@@ -14,22 +14,28 @@ include ../../benchmark.mk
 %.beam: %.erl
 	erlc $<
 
-new-report.txt: $(wildcard *.erl)
-	erlc *.erl && erl -noshell -s bench write_report report.txt -s init stop && cat report.txt
+erlprimedrv:
+	gcc -I/usr/lib/erlang/erts-5.6.1/include -o erlprimedrv -fpic -shared erlprime.c erlprime_lid.c
+
+
+REPORTS := $(shell erl -noshell -s bench write_output_files report -s init stop)
+
+new-report: $(wildcard *.erl)
+	erlc *.erl && erl -noshell -s bench write_report report -s init stop
 
 reports: $(foreach x,eps svg png,report.$(x))
 
-report.eps: report.txt report.gnuplot Makefile
+report.eps: $(REPORTS) report.gnuplot Makefile
 	(echo "set terminal postscript eps"; \
 	 echo "set output \"report.eps\""; \
          cat report.gnuplot) | gnuplot -
 
-report.svg: report.txt report.gnuplot Makefile
+report.svg: $(REPORTS) report.gnuplot Makefile
 	(echo "set terminal svg size 800,600 dynamic"; \
 	 echo "set output \"report.svg\""; \
          cat report.gnuplot) | gnuplot -
 
-report.png: report.txt report.gnuplot Makefile
+report.png: $(REPORTS) report.gnuplot Makefile
 	(echo "set terminal png giant size 800,600"; \
 	 echo "set output \"report.png\""; \
          cat report.gnuplot) | gnuplot -
