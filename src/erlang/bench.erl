@@ -12,13 +12,16 @@
 
 
 run_bench(Count) ->
-    Modules = [p4, p5, %p6, p7, % behave almost like p5
-	       prime_sieve_ack_flex,
-	       prime_sieve_circle,
+    Modules = [{p4, 30000},
+               {p5, 10000},
+               %p6, p7, % behave almost like p5
+	       {prime_sieve_ack_flex, 10000},
+	       {prime_sieve_circle, 20000},
 	       %prime_sieve_circle2 % behaves almost like prime_sieve_circle3
-	       prime_sieve_circle3
+	       {prime_sieve_circle3, 300000}
 	      ],
-    lists:map(fun(M) ->
+    lists:map(fun
+              ({M, Max}) when Count =< Max ->
 		      io:format("~p ~p~n", [Count, M]),
 		      statistics(runtime),
 		      statistics(wall_clock),
@@ -26,7 +29,10 @@ run_bench(Count) ->
 		      {_, Runtime} = statistics(runtime),
 		      {_, WallClockTime} = statistics(wall_clock),
 		      io:format("    ~p~n", [{M, Runtime, WallClockTime}]),
-		      {M, Runtime, WallClockTime, Primes}
+		      {M, Runtime, WallClockTime, Primes};
+              ({M, Max}) ->
+                      io:format("~p ~p ignored (~p)~n", [Count, M, Max]),
+                      {M, '-', '-', []}
 	      end,
 	      Modules).
 
@@ -57,8 +63,9 @@ main() ->
 
 
 write_report([FileName]) ->
-    io:format("Writing report to ~p.~n", [FileName]),
-    {ok,S} = file:open(FileName, write),
+    TmpFileName = [FileName, ".new"],
+    io:format("Writing report to ~p.~n", [TmpFileName]),
+    {ok,S} = file:open(TmpFileName, write),
     Results = main(),
     [{_Count, ZeroResults}|_] = Results,
     ModStrings = lists:map(fun({M,_,_,_,_}) -> atom_to_list(M) end,
@@ -73,4 +80,6 @@ write_report([FileName]) ->
 			  io:format(S, "~n", [])
 		  end, Results),
     file:close(S),
-    io:format("Report written to ~p.~n", [FileName]).
+    io:format("Report written to ~p.~n", [TmpFileName]),
+    file:rename(TmpFileName, FileName),
+    io:format("Report renamed to ~p.~n", [FileName]).
