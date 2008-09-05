@@ -62,3 +62,11 @@ Version Control
 
 Migrated to git from arch (tla).
 
+
+
+TODO
+~~~~
+
+  * Have programs accept number of primes to calculate on command line.
+  * Test different programs for different number of primes to calculate.
+  * Print diagram of program/numberofprimes/runtime.
