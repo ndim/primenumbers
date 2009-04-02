@@ -46,6 +46,7 @@ def run():
                              "erlang-sieve-circle",
                              "erlang-sieve-circle2",
                              "erlang-sieve-circle3",
+                             "erlang-matthavener",
                              ]:
                     algo = "wrong"
                 else:
