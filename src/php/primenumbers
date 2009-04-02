@@ -1,9 +1,9 @@
 #!/usr/bin/php
 <?php
 
-function foo() {
-	return "Bar";
+function xqrt($x) {
+	return $x*3;
 }
 
-echo "Moo", foo(), "\n";
+echo "Moo", xqrt(13), "\n";
 ?>
