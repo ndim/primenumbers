@@ -56,6 +56,10 @@ You can create an HTML file with a summary by running
 
 	make benchmark.html
 
+The resulting file created on my system is available from
+
+	http://ndim.github.com/primenumbers/
+
 
 Version Control
 ~~~~~~~~~~~~~~~
