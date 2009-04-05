@@ -137,7 +137,11 @@ def run():
             tc["rank"] = "&nbsp;"
         tc["relative"] = tc["total"] / fastest
         o.write("  <tr class=\"%(algo)s\"><td>%(rank)s</td><td>%(total)1.2f</td><td>%(relative)1.2f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
-    o.write('</table>\n</body>\n</html>\n')
+    o.write('</table>\n')
+    o.write('<p>You can find the source code at '
+            '<a href="http://github.com/ndim/primenumbers/">http://github.com/ndim/primenumbers/</a> '
+            'or just run <tt>git clone git://github.com/ndim/primenumbers.git</tt> to get a local copy.</p>')
+    o.write('</body>\n</html>\n')
 
 def main():
     run()
