@@ -14,8 +14,8 @@ primes(Prime, Max, Primes, Integers) ->
     [NewPrime|NewIntegers] = [ X || X <- Integers, X rem Prime =/= 0 ],
     primes(NewPrime, Max, [Prime|Primes], NewIntegers).
 
-primes(N) ->
-    primes(2, round(math:sqrt(N)), [], lists:seq(3,N,2)). % skip odds
+primes(Max) ->
+    primes(2, round(math:sqrt(Max)), [], lists:seq(3,Max,2)). % skip odds
 
 print_list(Index,[Head|Tail]) ->
     io:format("~w ~w~n",[Index,Head]),
@@ -23,8 +23,8 @@ print_list(Index,[Head|Tail]) ->
 print_list(_Index,[]) ->
     ok.
 
-start(Count) ->
-    L = primes(Count),
+start(Max) ->
+    L = primes(Max),
     print_list(0, L).
 
 start() ->
