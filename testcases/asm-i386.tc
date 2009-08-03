@@ -1,3 +1,3 @@
-i386 assembler
+i386 assembly
 asm-i386
 ASFLAGS=-alh -L
