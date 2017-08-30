@@ -1,5 +1,0 @@
-Java using gcj -O0 -g
-java
-CFLAGS=-O0 -g
-CLASSPATH=/usr/share/java/libgcj-4.1.2.jar
-GCJ=gcj
