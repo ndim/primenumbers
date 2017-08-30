@@ -1,3 +1,0 @@
-O4-optimized C for Pentium 4
-c
-CFLAGS=-O4 -mcpu=pentium4 -march=pentium4
