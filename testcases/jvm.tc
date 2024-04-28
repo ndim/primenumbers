@@ -1,4 +1,4 @@
-Java using JVM (OpenJDK 1.8.0)
+Java using JVM (OpenJDK 21)
 java
 USE_JAVA_VM=1
-JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk
