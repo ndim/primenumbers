@@ -10,8 +10,8 @@ def run():
     resultdir = os.path.join(topdir,"results")
     testcasedir = os.path.join(topdir,"testcases")
     # Read files
-    usertime   = re.compile("\s+User time \(seconds\):\s+(\S+)\s*")
-    systemtime = re.compile("\s+System time \(seconds\):\s+(\S+)\s*")
+    usertime   = re.compile(r"\s+User time \(seconds\):\s+(\S+)\s*")
+    systemtime = re.compile(r"\s+System time \(seconds\):\s+(\S+)\s*")
     testcases = []
     for root, dirs, files in os.walk(resultdir):
         for fname in files:
@@ -126,7 +126,7 @@ def run():
     most effective one for the respective language/runtime pair.
   </p>\n""")
     o.write('<table>\n  <tr><th>rank</th><th>seconds</th><th>relative factor</th><th>testcase</th><th>description</th></tr>\n')
-    testcases.sort(lambda a,b: cmp(a["total"],b["total"]))
+    testcases.sort(key = lambda e: e["total"])
     n = 0
     fastest = testcases[0]["total"]
     for tc in testcases:
