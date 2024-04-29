@@ -1,3 +1,0 @@
-O4-optimized C for znver1 (AMD Family 17th)
-c
-CFLAGS=-O4 -mtune=znver1 -march=znver1
