@@ -2,12 +2,17 @@ PATH := .:$(VPATH):$(PATH)
 
 include $(COMPILE_OPTIONS)
 
+MAX = 262144
+MAX = 65536
+# MAX = 1000
+# MAX =
+
+# This first starts up the executable and then kills it a few seconds
+# later. That should ensure all the data loaded from disk is in the
+# cachen when the actual timed run starts.
 .PHONY: benchmark
 benchmark: $(EXECUTABLE)
-	("$(EXECUTABLE)" > /dev/null & pid="$$!"; \
-		sleep 3; kill    "$$pid"; \
-		sleep 1; kill -9 "$$pid"; \
-		wait "$$pid") 2>/dev/null; :
-	$(TIME) -v "$(EXECUTABLE)" > "$(STDOUT).tmp" 2> "$(STDERR).tmp"
+	ulimit -t 3; "$(EXECUTABLE)" > /dev/null 2>&1; :
+	set -x; $(TIME) -v "$(EXECUTABLE)" $(MAX) > "$(STDOUT).tmp" 2> "$(STDERR).tmp"
 	mv -f "$(STDOUT).tmp" "$(STDOUT)"
 	mv -f "$(STDERR).tmp" "$(STDERR)"
