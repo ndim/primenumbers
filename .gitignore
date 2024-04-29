@@ -1,9 +1,10 @@
 *~
-ChangeLog
+/ChangeLog
 *.beam
 *.COVER.out
 *.swp
-benchmark.html
-build
-results
-primenumbers-*.tar.gz
+/benchmark.html
+/build/
+/results/
+/primenumbers-*.tar.gz
+/src/rust/target/
