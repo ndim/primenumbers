@@ -1,0 +1,5 @@
+[package]
+name = "primenumbers"
+version = "0.1.0"
+edition = "2021"
+authors = ["Hans Ulrich Niedermann <hun@n-dimensional.de>"]

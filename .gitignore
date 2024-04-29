@@ -7,4 +7,5 @@
 /build/
 /results/
 /primenumbers-*.tar.gz
+/src/rust/Cargo.lock
 /src/rust/target/

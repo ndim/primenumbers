@@ -1,0 +1,3 @@
+straightforward port to Rust (debug target)
+rust
+export TARGET=debug

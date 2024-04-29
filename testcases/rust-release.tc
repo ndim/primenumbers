@@ -1,0 +1,3 @@
+straightforward port to Rust (release target)
+rust
+export TARGET=release
