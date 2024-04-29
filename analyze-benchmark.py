@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import datetime
 import os
@@ -6,24 +6,25 @@ import re
 import stat
 import sys
 
+
 def run():
     topdir = os.path.dirname(sys.argv[0])
-    resultdir = os.path.join(topdir,"results")
-    testcasedir = os.path.join(topdir,"testcases")
+    resultdir = os.path.join(topdir, "results")
+    testcasedir = os.path.join(topdir, "testcases")
     # Read files
-    usertime   = re.compile(r"\s+User time \(seconds\):\s+(\S+)\s*")
+    usertime = re.compile(r"\s+User time \(seconds\):\s+(\S+)\s*")
     systemtime = re.compile(r"\s+System time \(seconds\):\s+(\S+)\s*")
     testcases = []
     for root, dirs, files in os.walk(resultdir):
         for fname in files:
             basename = os.path.basename(fname)
-            (tcase,ext) = os.path.splitext(basename)
-            if ext != '.time':
+            (tcase, ext) = os.path.splitext(basename)
+            if ext != ".time":
                 continue
 
             utime = None
             stime = None
-            timefname = os.path.join(root,tcase+'.time')
+            timefname = os.path.join(root, tcase + ".time")
             statdata = os.stat(timefname)
             if statdata[stat.ST_SIZE]:
                 timefile = open(timefname, "r")
@@ -36,42 +37,48 @@ def run():
                         utime = float(um.group(1))
                 timefile.close()
 
-                repeats_fname = os.path.join(root,tcase+'.repeats')
+                repeats_fname = os.path.join(root, tcase + ".repeats")
                 repeats = 1
                 with open(repeats_fname) as repeats_file:
-                    repeats = int(repeats_file.read().split('=')[1], 10)
+                    repeats = int(repeats_file.read().split("=")[1], 10)
 
-                tcfile = open(os.path.join(testcasedir,tcase+".tc"),"r")
+                tcfile = open(os.path.join(testcasedir, tcase + ".tc"), "r")
                 descr = tcfile.readlines()[0]
                 tcfile.close()
 
                 # Ugly hardcoded blacklist
-                if tcase in ["erlang-sieve-ack",
-                             "erlang-sieve-ack-nosmp",
-                             "erlang-sieve-ack-smp",
-                             "erlang-sieve-circle",
-                             "erlang-sieve-circle2",
-                             "erlang-sieve-circle3",
-                             "erlang-matthavener",
-                             ]:
+                if tcase in [
+                    "erlang-sieve-ack",
+                    "erlang-sieve-ack-nosmp",
+                    "erlang-sieve-ack-smp",
+                    "erlang-sieve-circle",
+                    "erlang-sieve-circle2",
+                    "erlang-sieve-circle3",
+                    "erlang-matthavener",
+                ]:
                     algo = "wrong"
                 else:
                     algo = "right"
 
                 repeats = float(repeats)
-                testcases.append({"name":  tcase,
-                                  "utime": utime / repeats,
-                                  "stime": stime / repeats,
-                                  "total": (utime+stime) / repeats,
-                                  "descr": descr,
-                                  "algo": algo,
-                                  })
+                testcases.append(
+                    {
+                        "name": tcase,
+                        "utime": utime / repeats,
+                        "stime": stime / repeats,
+                        "total": (utime + stime) / repeats,
+                        "descr": descr,
+                        "algo": algo,
+                    }
+                )
 
     # Print gathered data
     o = sys.stdout
-    params = { "pagetitle": "Prime Number Benchmark",
-               }
-    o.write('''<html>
+    params = {
+        "pagetitle": "Prime Number Benchmark",
+    }
+    o.write(
+        """<html>
   <head>
     <title>%(pagetitle)s</title>
     <style>
@@ -117,8 +124,11 @@ def run():
   </head>
   <body>
     <h1>%(pagetitle)s</h1>
-''' % (params))
-    o.write("""\
+"""
+        % (params)
+    )
+    o.write(
+        """\
   <p>
     The task solved by these programs is to
     <ol>
@@ -131,9 +141,12 @@ def run():
     larger numbers n against this list until the value from the list
     exceeds the square root of n. This algorithm may or may not be the
     most effective one for the respective language/runtime pair.
-  </p>\n""")
-    o.write('<table>\n  <tr><th>rank</th><th>seconds</th><th>relative factor</th><th>testcase</th><th>description</th></tr>\n')
-    testcases.sort(key = lambda e: e["total"])
+  </p>\n"""
+    )
+    o.write(
+        "<table>\n  <tr><th>rank</th><th>seconds</th><th>relative factor</th><th>testcase</th><th>description</th></tr>\n"
+    )
+    testcases.sort(key=lambda e: e["total"])
     n = 0
     fastest = testcases[0]["total"]
     for tc in testcases:
@@ -143,24 +156,36 @@ def run():
         else:
             tc["rank"] = "&nbsp;"
         tc["relative"] = tc["total"] / fastest
-        o.write("  <tr class=\"%(algo)s\"><td>%(rank)s</td><td>%(total)1.3f</td><td>%(relative)1.3f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
-    o.write('</table>\n')
+        o.write(
+            '  <tr class="%(algo)s"><td>%(rank)s</td><td>%(total)1.3f</td><td>%(relative)1.3f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n'
+            % tc
+        )
+    o.write("</table>\n")
 
-    v = { 'today_date': datetime.datetime.now().strftime("%Y-%m-%d"),
-          'cpu_model_name': [
-              line
-              for line in open("/proc/cpuinfo").readlines()
-              if line.startswith("model name") ][0].split(': ')[1]
+    v = {
+        "today_date": datetime.datetime.now().strftime("%Y-%m-%d"),
+        "cpu_model_name": [
+            line
+            for line in open("/proc/cpuinfo").readlines()
+            if line.startswith("model name")
+        ][0].split(": ")[1],
     }
-    o.write('<p>The values in the above table have been created on <code>%(today_date)s</code> by a <code>%(cpu_model_name)s</code>.</p>' % v)
+    o.write(
+        "<p>The values in the above table have been created on <code>%(today_date)s</code> by a <code>%(cpu_model_name)s</code>.</p>"
+        % v
+    )
 
-    o.write('<p>You can find the source code at '
-            '<a href="http://github.com/ndim/primenumbers/">http://github.com/ndim/primenumbers/</a> '
-            'or just run <tt>git clone git://github.com/ndim/primenumbers.git</tt> to get a local copy.</p>')
-    o.write('</body>\n</html>\n')
+    o.write(
+        "<p>You can find the source code at "
+        '<a href="http://github.com/ndim/primenumbers/">http://github.com/ndim/primenumbers/</a> '
+        "or just run <tt>git clone git://github.com/ndim/primenumbers.git</tt> to get a local copy.</p>"
+    )
+    o.write("</body>\n</html>\n")
+
 
 def main():
     run()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
