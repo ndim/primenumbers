@@ -3,8 +3,10 @@ PATH := .:$(VPATH):$(PATH)
 include $(COMPILE_OPTIONS)
 
 MAX = 262144
+MAX = 131072
 MAX = 65536
 # MAX = 1000
+# MAX = 100
 # MAX =
 
 # This first starts up the executable and then kills it a few seconds
