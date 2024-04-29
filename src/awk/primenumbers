@@ -23,7 +23,15 @@ function sqrt_handmade(x) {
 
 BEGIN {
 
-    MAX = lshift(1, 16);
+    if (ARGC > 2) {
+         exit 1
+    }
+    if (ARGC == 2) {
+         MAX = ARGV[1]
+         delete ARGV
+    } else {
+         MAX = lshift(1, 16);
+    }
 
     p[0] = 2;
     p[1] = 3;
