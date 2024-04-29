@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-import sys
+import datetime
 import os
 import re
 import stat
+import sys
 
 def run():
     topdir = os.path.dirname(sys.argv[0])
@@ -138,6 +139,15 @@ def run():
         tc["relative"] = tc["total"] / fastest
         o.write("  <tr class=\"%(algo)s\"><td>%(rank)s</td><td>%(total)1.2f</td><td>%(relative)1.2f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
     o.write('</table>\n')
+
+    v = { 'today_date': datetime.datetime.now().strftime("%Y-%m-%d"),
+          'cpu_model_name': [
+              line
+              for line in open("/proc/cpuinfo").readlines()
+              if line.startswith("model name") ][0].split(': ')[1]
+    }
+    o.write('<p>The values in the above table have been created on <code>%(today_date)s</code> by a <code>%(cpu_model_name)s</code>.</p>' % v)
+
     o.write('<p>You can find the source code at '
             '<a href="http://github.com/ndim/primenumbers/">http://github.com/ndim/primenumbers/</a> '
             'or just run <tt>git clone git://github.com/ndim/primenumbers.git</tt> to get a local copy.</p>')
