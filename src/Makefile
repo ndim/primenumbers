@@ -64,6 +64,7 @@ benchmark: build
 		(read;read;cat) < "$$tc" > "$${resultdir}/$${name}.compile-options"; \
 		$(MAKE) COMPILE_OPTIONS="$${resultdir}/$${name}.compile-options" \
 			VPATH="$$srcdir" \
+			REPEATS="$${resultdir}/$${name}.repeats" \
 			STDOUT="$${resultdir}/$${name}.output" \
 			STDERR="$${resultdir}/$${name}.time" \
 			-f "$$srcdir/Makefile" -C "$$builddir" "$@" < /dev/null; \

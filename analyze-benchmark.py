@@ -36,6 +36,11 @@ def run():
                         utime = float(um.group(1))
                 timefile.close()
 
+                repeats_fname = os.path.join(root,tcase+'.repeats')
+                repeats = 1
+                with open(repeats_fname) as repeats_file:
+                    repeats = int(repeats_file.read().split('=')[1], 10)
+
                 tcfile = open(os.path.join(testcasedir,tcase+".tc"),"r")
                 descr = tcfile.readlines()[0]
                 tcfile.close()
@@ -52,11 +57,12 @@ def run():
                     algo = "wrong"
                 else:
                     algo = "right"
-                
+
+                repeats = float(repeats)
                 testcases.append({"name":  tcase,
-                                  "utime": utime,
-                                  "stime": stime,
-                                  "total": (utime+stime),
+                                  "utime": utime / repeats,
+                                  "stime": stime / repeats,
+                                  "total": (utime+stime) / repeats,
                                   "descr": descr,
                                   "algo": algo,
                                   })
@@ -137,7 +143,7 @@ def run():
         else:
             tc["rank"] = "&nbsp;"
         tc["relative"] = tc["total"] / fastest
-        o.write("  <tr class=\"%(algo)s\"><td>%(rank)s</td><td>%(total)1.2f</td><td>%(relative)1.2f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
+        o.write("  <tr class=\"%(algo)s\"><td>%(rank)s</td><td>%(total)1.3f</td><td>%(relative)1.3f</td><td>%(name)s</td><td>%(descr)s</td></tr>\n" % tc)
     o.write('</table>\n')
 
     v = { 'today_date': datetime.datetime.now().strftime("%Y-%m-%d"),
