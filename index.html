@@ -59,60 +59,63 @@
   </p>
 <table>
   <tr><th>rank</th><th>seconds</th><th>relative factor</th><th>testcase</th><th>description</th></tr>
-  <tr class="right"><td>1</td><td>0.22</td><td>1.00</td><td>asm-i386</td><td>i386 assembler
+  <tr class="right"><td>1</td><td>0.028</td><td>1.000</td><td>c-opt-native</td><td>O4-optimized C for native CPU
 </td></tr>
-  <tr class="right"><td>2</td><td>0.23</td><td>1.05</td><td>c-opt</td><td>O4-optimized C
+  <tr class="right"><td>2</td><td>0.028</td><td>1.002</td><td>c-opt</td><td>O4-optimized C
 </td></tr>
-  <tr class="right"><td>3</td><td>0.23</td><td>1.05</td><td>c-opt-p4</td><td>O4-optimized C for Pentium 4
+  <tr class="right"><td>3</td><td>0.030</td><td>1.087</td><td>asm-i386</td><td>i386 assembly
 </td></tr>
-  <tr class="right"><td>4</td><td>0.25</td><td>1.14</td><td>c</td><td>C without any optimization options
+  <tr class="right"><td>4</td><td>0.045</td><td>1.610</td><td>c</td><td>C without any optimization options
 </td></tr>
-  <tr class="right"><td>5</td><td>0.25</td><td>1.14</td><td>c-debug</td><td>non-optimized C with debug code
+  <tr class="right"><td>5</td><td>0.045</td><td>1.610</td><td>c-debug</td><td>non-optimized C with debug code
 </td></tr>
-  <tr class="right"><td>6</td><td>1.39</td><td>6.32</td><td>gcj-o4</td><td>Java using gcj -O4
+  <tr class="right"><td>6</td><td>0.730</td><td>26.373</td><td>ada-opt-no-checks</td><td>O4-optimized Ada without checks
 </td></tr>
-  <tr class="right"><td>7</td><td>1.44</td><td>6.55</td><td>ada-opt</td><td>O4-optimized Ada
+  <tr class="right"><td>7</td><td>0.736</td><td>26.590</td><td>ada-opt</td><td>O4-optimized Ada
 </td></tr>
-  <tr class="right"><td>8</td><td>1.44</td><td>6.55</td><td>ada-opt-no-checks</td><td>O4-optimized Ada without checks
+  <tr class="right"><td>8</td><td>0.736</td><td>26.590</td><td>ruby-native</td><td>Ruby with Math.sqrt()
 </td></tr>
-  <tr class="right"><td>9</td><td>1.50</td><td>6.82</td><td>ada-debug</td><td>non-optimized Ada with debug code
+  <tr class="right"><td>9</td><td>0.760</td><td>27.457</td><td>ada-debug</td><td>non-optimized Ada with debug code
 </td></tr>
-  <tr class="right"><td>10</td><td>1.91</td><td>8.68</td><td>gcj-debug</td><td>Java using gcj -O0 -g
+  <tr class="right"><td>10</td><td>0.762</td><td>27.529</td><td>ruby</td><td>RUBY
 </td></tr>
-  <tr class="right"><td>11</td><td>2.65</td><td>12.05</td><td>jvm</td><td>Java using JVM (OpenJDK 1.6.0)
+  <tr class="right"><td>11</td><td>0.855</td><td>30.882</td><td>jvm</td><td>Java using JVM (OpenJDK 21)
 </td></tr>
-  <tr class="wrong"><td>&nbsp;</td><td>4.77</td><td>21.68</td><td>erlang-matthavener</td><td>prime number sieve in Erlang (matthavener algo for comparison)
+  <tr class="right"><td>12</td><td>0.904</td><td>32.659</td><td>perl-native</td><td>Perl with native sqrt
 </td></tr>
-  <tr class="right"><td>12</td><td>9.42</td><td>42.82</td><td>perl-native</td><td>Perl with native sqrt
+  <tr class="right"><td>13</td><td>0.986</td><td>35.621</td><td>rust-release</td><td>straightforward port to Rust (release target)
 </td></tr>
-  <tr class="right"><td>13</td><td>14.00</td><td>63.64</td><td>perl</td><td>Perl
+  <tr class="wrong"><td>&nbsp;</td><td>1.202</td><td>43.425</td><td>erlang-sieve-ack</td><td>prime number sieve in Erlang (different algo for comparison)
 </td></tr>
-  <tr class="right"><td>14</td><td>15.76</td><td>71.64</td><td>python-native</td><td>python using built-in array with direct array index, math.sqrt()
+  <tr class="right"><td>14</td><td>1.298</td><td>46.893</td><td>perl</td><td>Perl
 </td></tr>
-  <tr class="right"><td>15</td><td>17.83</td><td>81.05</td><td>python</td><td>python using built-in array with direct array index
+  <tr class="right"><td>15</td><td>1.488</td><td>53.757</td><td>awk-native</td><td>AWK with native sqrt
 </td></tr>
-  <tr class="right"><td>16</td><td>20.77</td><td>94.41</td><td>awk-native</td><td>AWK with native sqrt
+  <tr class="right"><td>16</td><td>1.664</td><td>60.116</td><td>python-native</td><td>python using built-in array with direct array index, math.sqrt()
 </td></tr>
-  <tr class="right"><td>17</td><td>24.97</td><td>113.50</td><td>awk</td><td>AWK
+  <tr class="wrong"><td>&nbsp;</td><td>1.762</td><td>63.656</td><td>erlang-matthavener</td><td>prime number sieve in Erlang (matthavener algo for comparison)
 </td></tr>
-  <tr class="right"><td>18</td><td>25.12</td><td>114.18</td><td>ruby</td><td>RUBY
+  <tr class="right"><td>17</td><td>2.078</td><td>75.072</td><td>awk</td><td>AWK
 </td></tr>
-  <tr class="right"><td>19</td><td>29.03</td><td>131.95</td><td>ruby-native</td><td>Ruby with Math.sqrt()
+  <tr class="right"><td>18</td><td>2.094</td><td>75.650</td><td>python</td><td>python using built-in array with direct array index
 </td></tr>
-  <tr class="right"><td>20</td><td>29.64</td><td>134.73</td><td>python-array</td><td>python using array module with initialization without appends
+  <tr class="right"><td>19</td><td>2.674</td><td>96.604</td><td>python-array</td><td>python using array module with initialization without appends
 </td></tr>
-  <tr class="right"><td>21</td><td>29.80</td><td>135.45</td><td>python-array-append</td><td>python using array module with append
+  <tr class="right"><td>20</td><td>2.694</td><td>97.327</td><td>python-array-append</td><td>python using array module with append
 </td></tr>
-  <tr class="wrong"><td>&nbsp;</td><td>31.91</td><td>145.05</td><td>erlang-sieve-circle3</td><td>prime number sieve in Erlang (yet another algo for comparison)
+  <tr class="right"><td>21</td><td>5.270</td><td>190.390</td><td>python-numpy</td><td>python using numpy module without initialization without appends
 </td></tr>
-  <tr class="wrong"><td>&nbsp;</td><td>60.09</td><td>273.14</td><td>erlang-sieve-ack</td><td>prime number sieve in Erlang (different algo for comparison)
+  <tr class="right"><td>22</td><td>7.220</td><td>260.838</td><td>rust-debug</td><td>straightforward port to Rust (debug target)
 </td></tr>
-  <tr class="right"><td>22</td><td>1004.37</td><td>4565.32</td><td>erlang-p41</td><td>straightforward port to Erlang (p41.erl)
+  <tr class="wrong"><td>&nbsp;</td><td>9.100</td><td>328.757</td><td>erlang-sieve-circle3</td><td>prime number sieve in Erlang (yet another algo for comparison)
 </td></tr>
-  <tr class="right"><td>23</td><td>1088.41</td><td>4947.32</td><td>erlang</td><td>straightforward port to Erlang (p4.erl)
+  <tr class="right"><td>23</td><td>46.150</td><td>1667.269</td><td>erlang-p41</td><td>straightforward port to Erlang (p41.erl)
 </td></tr>
-  <tr class="right"><td>24</td><td>6419.35</td><td>29178.86</td><td>bash</td><td>BASH
+  <tr class="right"><td>24</td><td>58.670</td><td>2119.581</td><td>erlang</td><td>straightforward port to Erlang (p4.erl)
+</td></tr>
+  <tr class="right"><td>25</td><td>1785.300</td><td>64497.832</td><td>bash</td><td>BASH
 </td></tr>
 </table>
-<p>You can find the source code at <a href="http://github.com/ndim/primenumbers/">http://github.com/ndim/primenumbers/</a> or just run <tt>git clone git://github.com/ndim/primenumbers.git</tt> to get a local copy.</p></body>
+<p>The values in the above table have been created on <code>2024-04-30</code> by a <code>AMD Ryzen 5 5600X 6-Core Processor
+</code>.</p><p>You can find the source code at <a href="http://github.com/ndim/primenumbers/">http://github.com/ndim/primenumbers/</a> or just run <tt>git clone git://github.com/ndim/primenumbers.git</tt> to get a local copy.</p></body>
 </html>
