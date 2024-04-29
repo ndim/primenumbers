@@ -18,7 +18,6 @@ build:
 		srcdir="$$(cd $$src && pwd)" || exit 102; \
 		builddir="$(BUILDDIR)/$$name"; \
 		mkdir -p "$$builddir" || exit 103; \
-		ln -sf "$$srcdir/Makefile" "$$builddir/Makefile" || exit 104; \
 		( \
 		n=-2; while read var_value; do \
 			n=$$(($$n+1)); \
@@ -29,7 +28,7 @@ build:
 			export $${var}="$$value"; \
 		done < "$$tc"; \
 		IFS="$$ifs"; \
-		VPATH="$$srcdir" $(MAKE) -C "$$builddir" "$@" ); \
+		VPATH="$$srcdir" $(MAKE) -f "$$srcdir/Makefile" -C "$$builddir" "$@" ); \
 		status="$$?"; \
 		if test "$$status" -ne 0; then \
 			failed="$${failed} $${name}"; \
@@ -67,7 +66,7 @@ benchmark: build
 			VPATH="$$srcdir" \
 			STDOUT="$${resultdir}/$${name}.output" \
 			STDERR="$${resultdir}/$${name}.time" \
-			-C "$$builddir" "$@" < /dev/null; \
+			-f "$$srcdir/Makefile" -C "$$builddir" "$@" < /dev/null; \
 		status="$$?"; \
 		if test "$$status" -ne 0; then \
 			failed="$${failed} $${name}"; \
