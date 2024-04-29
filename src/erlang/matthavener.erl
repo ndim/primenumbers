@@ -8,14 +8,14 @@
 -module(matthavener).
 -export([start/0, start/1]).
 
-primes(Prime, Max, Primes, Integers) when Prime > Max ->
+primes(Prime, MaxPrimeValue, Primes, Integers) when Prime > MaxPrimeValue ->
     lists:reverse([Prime|Primes]) ++ Integers;
-primes(Prime, Max, Primes, Integers) ->
+primes(Prime, MaxPrimeValue, Primes, Integers) ->
     [NewPrime|NewIntegers] = [ X || X <- Integers, X rem Prime =/= 0 ],
-    primes(NewPrime, Max, [Prime|Primes], NewIntegers).
+    primes(NewPrime, MaxPrimeValue, [Prime|Primes], NewIntegers).
 
-primes(Max) ->
-    primes(2, round(math:sqrt(Max)), [], lists:seq(3,Max,2)). % skip odds
+primes(MaxPrimeValue) ->
+    primes(2, round(math:sqrt(MaxPrimeValue)), [], lists:seq(3,MaxPrimeValue,2)). % skip odds
 
 print_list(Index,[Head|Tail]) ->
     io:format("~w ~w~n",[Index,Head]),
@@ -23,9 +23,23 @@ print_list(Index,[Head|Tail]) ->
 print_list(_Index,[]) ->
     ok.
 
-start(Max) ->
-    L = primes(Max),
+prime_count_to_value(Count) when Count == 100 ->
+    542;
+prime_count_to_value(Count) when Count == 1000 ->
+    7920;
+prime_count_to_value(Count) when Count == 65536 ->
+    821642;
+prime_count_to_value(Count) when Count == 131072 ->
+    1742548;
+prime_count_to_value(Count) when Count == 262144 ->
+    3681132.
+
+start([MaxPrimeCount]) when is_atom(MaxPrimeCount) ->
+    start(list_to_integer(atom_to_list(MaxPrimeCount)));
+start(MaxPrimeCount) when is_integer(MaxPrimeCount) ->
+    MaxPrimeValue = prime_count_to_value(MaxPrimeCount),
+    L = primes(MaxPrimeValue),
     print_list(0, L).
 
 start() ->
-    start(821641).
+    start(65536).

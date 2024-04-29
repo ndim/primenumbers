@@ -36,10 +36,10 @@
 -export([receiver/4, primelist/1]).
 
 
--compile([export_all]).
+%% -compile([export_all]).
 
 
--define(MAX_VALUE, 821642). %% limit for the first 2^16 prime numbers
+-define(MAX_PRIME_VALUE, 821642). %% limit for the first 2^16 prime numbers
 
 
 %% @spec test_next(Next, TestMe) -> Pid
@@ -173,16 +173,18 @@ default_report(Index, Prime) when is_integer(Index), is_integer(Prime) ->
 
 %% @spec start(Max) -> done
 %% @doc Start generating prime numbers smaller than <tt>Max</tt>.
+start([Max]) when is_atom(Max) ->
+    start(list_to_integer(atom_to_list(Max)));
 start(Max) when is_integer(Max) ->
     start(Max, fun default_report/2);
 start(ReportFun) when is_function(ReportFun) ->
-    start(?MAX_VALUE, ReportFun).
+    start(?MAX_PRIME_VALUE, ReportFun).
 
 
 %% @spec start() -> done
 %% @doc Start generating prime numbers smaller than a default value.
 start() ->
-    start(?MAX_VALUE, fun default_report/2).
+    start(?MAX_PRIME_VALUE, fun default_report/2).
 
 
 %% The actual implementation.

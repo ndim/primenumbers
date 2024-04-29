@@ -33,14 +33,12 @@
 %%   Have counter count 2,3,5,7,9,11,etc.
 
 -module(prime_sieve_circle3).
--export([start/0]).
--export([primelist/0, primelist/1]).
+-export([start/0, start/1]).
+-export([primelist/1]).
 -export([controller/4, counter/2, sieve/2]).
 
 
-%-define(DEFAULT_MAX_INDEX, 5).
--define(DEFAULT_MAX_INDEX, 65536).
--define(DEFAULT_MAX_PRIME, 821641).
+-define(DEFAULT_MAX_COUNT, 65536).
 
 
 -record(index_state,
@@ -154,19 +152,33 @@ run(Action, ActionState, MaxPrime) ->
     end.
 
 
-primelist(MaxIndex) ->
+prime_count_to_value(Count) when Count == 100 ->
+    542;
+prime_count_to_value(Count) when Count == 1000 ->
+    7920;
+prime_count_to_value(Count) when Count == 65536 ->
+    821642;
+prime_count_to_value(Count) when Count == 131072 ->
+    1742548;
+prime_count_to_value(Count) when Count == 262144 ->
+    3681132.
+
+
+primelist(MaxCount) ->
     #index_state{prime_list=PrimeList}
-	= run(fun collect_action/2, #index_state{max_index=MaxIndex},
-	      ?DEFAULT_MAX_PRIME),
+	= run(fun collect_action/2, #index_state{max_index=MaxCount},
+	      prime_count_to_value(MaxCount)),
     PrimeList.
 
 
-primelist() ->
-    primelist(?DEFAULT_MAX_INDEX).
+start([Max]) when is_atom(Max) ->
+    start(list_to_integer(atom_to_list(Max)));
+start(Max) when is_integer(Max) ->
+    #index_state{max_index=Max}
+	= run(fun print_action/2, #index_state{max_index=Max},
+	      prime_count_to_value(Max)),
+    ok.
 
 
 start() ->
-    #index_state{max_index=?DEFAULT_MAX_INDEX}
-	= run(fun print_action/2, #index_state{max_index=?DEFAULT_MAX_INDEX},
-	      ?DEFAULT_MAX_PRIME),
-    ok.
+    start(?DEFAULT_MAX_COUNT).

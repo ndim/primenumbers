@@ -115,28 +115,24 @@ primelist(0) ->
     [];
 primelist(1) ->
     [2];
-primelist(Count) when Count > 1 ->
-    chalk(5, [3,2], 2, Count).
-
-primelist() ->
-    primelist(65536).
+primelist(MaxPrimeCount) when MaxPrimeCount > 1 ->
+    chalk(5, [3,2], 2, MaxPrimeCount).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Main program
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-start(Count) ->
-    PrimeList = primelist(Count),
+start([MaxPrimeCount]) when is_atom(MaxPrimeCount) ->
+    start(list_to_integer(atom_to_list(MaxPrimeCount)));
+start(MaxPrimeCount) when is_integer(MaxPrimeCount) ->
+    PrimeList = primelist(MaxPrimeCount),
     ReversedList = lists:reverse(PrimeList),
     print_list(ReversedList),
     ok.
 
 start() ->
-    PrimeList = primelist(),
-    ReversedList = lists:reverse(PrimeList),
-    print_list(ReversedList),
-    ok.
+    start(65536).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
